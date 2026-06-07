@@ -549,7 +549,18 @@ function App() {
           </div>
           <div className="field">
             <label>サムネイル画像URL</label>
-            <input type="url" placeholder="https://..." value={form.thumb} onChange={e => setForm(f => ({...f,thumb:e.target.value}))} />
+            <input type="url" placeholder="https://drive.google.com/file/d/... またはその他の画像URL"
+              value={form.thumb}
+              onChange={e => {
+                const v = e.target.value;
+                /* Google Drive URLを自動変換 */
+                const m = v.match(/\/file\/d\/([^\/\?]+)/);
+                const converted = m
+                  ? `https://drive.google.com/uc?export=view&id=${m[1]}`
+                  : v;
+                setForm(f => ({...f, thumb: converted}));
+              }} />
+            <div className="hint">GoogleドライブのURLをそのまま貼ると自動変換します</div>
             <div className="thumb-preview">
               {form.thumb ? <img src={form.thumb} alt="プレビュー" onError={e => {e.target.style.display='none';}} /> : <span className="ph-label">サムネイルプレビュー</span>}
             </div>
