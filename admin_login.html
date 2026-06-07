@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ジブンゼミ｜管理者ログイン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F4F4F5;
+    --accent: #F8D423;
+    --accent-press: #E8C40F;
+    --navy: #1A3A6B;
+    --ink: #1F1F1F;
+    --white: #FFFFFF;
+    --muted: #6B6B70;
+    --line: #E4E4E7;
+    --field: #FAFAFA;
+    --radius: 12px;
+    --shadow: 0 4px 16px rgba(0,0,0,0.12);
+    --danger: #C0392B;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: "Noto Sans JP", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 40px 36px 36px;
+  }
+
+  .head {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .brand-mark {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--navy);
+    display: grid; place-items: center;
+    margin: 0 auto 14px;
+  }
+  .brand-mark span {
+    font-weight: 900; font-size: 22px;
+    color: var(--accent); line-height: 1;
+  }
+  .head h1 {
+    font-size: 20px; font-weight: 900;
+    letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  .head p { font-size: 12.5px; color: var(--muted); }
+
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 12.5px; font-weight: 700;
+    margin-bottom: 7px; color: var(--ink);
+  }
+  .input-wrap { position: relative; display: flex; align-items: center; }
+  .input-wrap.with-toggle input { padding-right: 46px; }
+
+  input[type="password"], input[type="text"] {
+    width: 100%; font-family: inherit; font-size: 14.5px; color: var(--ink);
+    background: var(--field); border: 1.5px solid var(--line);
+    border-radius: 9px; padding: 12px 14px;
+    transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+  }
+  input::placeholder { color: #B6B6BC; }
+  input:focus {
+    outline: none; border-color: var(--accent); background: var(--white);
+    box-shadow: 0 0 0 3px rgba(248,212,35,0.22);
+  }
+  input.invalid { border-color: var(--danger); background: #FDF3F2; }
+
+  .toggle-pw {
+    position: absolute; right: 6px; border: none; background: transparent;
+    cursor: pointer; padding: 8px; border-radius: 7px; color: var(--muted);
+    display: grid; place-items: center;
+    transition: color 0.15s, background 0.15s;
+  }
+  .toggle-pw:hover { color: var(--ink); background: var(--bg); }
+
+  .api-error {
+    background: #FDF3F2;
+    border: 1.5px solid #FECACA;
+    border-radius: 9px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--danger);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    width: 100%;
+    font-family: inherit; font-size: 15px; font-weight: 900;
+    border-radius: 10px; padding: 14px;
+    cursor: pointer; letter-spacing: 0.04em; border: none;
+    color: var(--ink); background: var(--accent);
+    box-shadow: 0 3px 10px rgba(248,212,35,0.35);
+    transition: background 0.16s, transform 0.08s, box-shadow 0.16s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--accent-press); box-shadow: 0 5px 14px rgba(248,212,35,0.45); }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-primary:disabled { background: #ECECEE; color: #B6B6BC; cursor: not-allowed; box-shadow: none; }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2.5px solid rgba(31,31,31,0.25);
+    border-top-color: var(--ink); border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .foot {
+    margin-top: 24px;
+    font-size: 11px; color: #A0A0A6;
+    text-align: center; letter-spacing: 0.02em;
+  }
+  .foot a {
+    color: var(--navy); text-decoration: none; font-weight: 700;
+  }
+  .foot a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <div class="brand-mark"><span>ジ</span></div>
+    <h1>管理者ログイン</h1>
+    <p>ジブンゼミ ポータル管理画面</p>
+  </div>
+
+  <div id="api-error" class="api-error" style="display:none;">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span id="api-error-msg"></span>
+  </div>
+
+  <div class="field">
+    <label for="password">管理者パスワード</label>
+    <div class="input-wrap with-toggle">
+      <input type="password" id="password" placeholder="パスワードを入力" autocomplete="current-password" />
+      <button type="button" class="toggle-pw" id="toggle-pw" aria-label="パスワードの表示切替">
+        <svg id="eye-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 12s3-8 10-8 10 8 10 8-3 8-10 8-10-8-10-8z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <button class="btn-primary" id="login-btn" onclick="handleLogin()">
+    ログイン
+  </button>
+
+  <div class="foot">
+    <a href="login.html">ユーザーログインはこちら</a>
+  </div>
+</div>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyk7ehj7Whvk6blfLjCMkFSi_XpAhpWXO473JTlQEoDhwd2gb574dCV9lxG6owkF_iTFw/exec';
+
+/* パスワード表示切替 */
+let showPw = false;
+document.getElementById('toggle-pw').addEventListener('click', function() {
+  showPw = !showPw;
+  const input = document.getElementById('password');
+  input.type = showPw ? 'text' : 'password';
+  document.getElementById('eye-icon').innerHTML = showPw
+    ? '<path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 10 8 10 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/><path d="M6.61 6.61A13.5 13.5 0 0 0 2 12s3 8 10 8a9.7 9.7 0 0 0 5.39-1.61"/>'
+    : '<path d="M2 12s3-8 10-8 10 8 10 8-3 8-10 8-10-8-10-8z"/><circle cx="12" cy="12" r="3"/>';
+});
+
+/* Enterキー対応 */
+document.getElementById('password').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') handleLogin();
+});
+
+/* ログイン処理 */
+async function handleLogin() {
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('login-btn');
+  const errorEl = document.getElementById('api-error');
+  const errorMsg = document.getElementById('api-error-msg');
+
+  if (!password) {
+    showError('パスワードを入力してください');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>ログイン中…';
+  errorEl.style.display = 'none';
+
+  try {
+    const resp = await fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'adminLogin', password })
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      localStorage.setItem('jz_admin_token', data.token);
+      localStorage.setItem('jz_admin_user', JSON.stringify({ role: 'admin' }));
+      window.location.href = 'admin_dashboard.html';
+    } else {
+      showError(data.error || 'ログインに失敗しました');
+      btn.disabled = false;
+      btn.innerHTML = 'ログイン';
+    }
+  } catch (err) {
+    showError('通信エラーが発生しました。しばらく待ってから再試行してください。');
+    btn.disabled = false;
+    btn.innerHTML = 'ログイン';
+  }
+}
+
+function showError(msg) {
+  const errorEl = document.getElementById('api-error');
+  document.getElementById('api-error-msg').textContent = msg;
+  errorEl.style.display = 'flex';
+  document.getElementById('password').classList.add('invalid');
+}
+</script>
+</body>
+</html>
