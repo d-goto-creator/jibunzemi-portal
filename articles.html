@@ -9,491 +9,256 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #F4F4F5;
-    --accent: #F8D423;
-    --accent-press: #E8C40F;
-    --navy: #1A3A6B;
-    --ink: #1F1F1F;
-    --white: #FFFFFF;
-    --muted: #6B6B70;
-    --line: #E4E4E7;
-    --field: #FAFAFA;
-    --radius: 12px;
-    --shadow: 0 4px 16px rgba(0,0,0,0.12);
-    --ok: #1F8A5B;
+    --bg:#F4F4F5;--accent:#F8D423;--accent-press:#E8C40F;--navy:#1A3A6B;
+    --ink:#1F1F1F;--white:#FFFFFF;--muted:#6B6B70;--line:#E4E4E7;--field:#FAFAFA;
+    --radius:12px;--shadow:0 4px 16px rgba(0,0,0,0.12);--ok:#1F8A5B;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
-  body {
-    font-family: "Noto Sans JP", sans-serif;
-    background: var(--bg); color: var(--ink);
-    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-  }
-  #root { min-height: 100%; }
-  a { color: inherit; }
-
-  /* ── Nav ── */
-  .nav {
-    height: 60px; background: var(--navy);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 24px; position: sticky; top: 0; z-index: 30;
-  }
-  .nav .brand { display: flex; align-items: center; gap: 10px; }
-  .brand-mark {
-    width: 28px; height: 28px; border-radius: 7px; background: var(--accent);
-    display: grid; place-items: center; flex-shrink: 0;
-  }
-  .brand-mark span { font-weight: 900; font-size: 16px; color: var(--navy); line-height: 1; }
-  .nav .brand-name { color: var(--white); font-weight: 700; font-size: 17px; letter-spacing: 0.04em; }
-  .nav-right { display: flex; align-items: center; gap: 6px; }
-  .nav-link {
-    color: rgba(255,255,255,0.82); font-size: 13px; font-weight: 700;
-    text-decoration: none; padding: 8px 13px; border-radius: 8px;
-    display: flex; align-items: center; gap: 7px;
-    transition: color 0.15s, background 0.15s;
-    cursor: pointer; background: none; border: none; font-family: inherit;
-  }
-  .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.10); }
-  .nav-link.active { color: var(--white); background: rgba(255,255,255,0.13); }
-  .nav-link.logout { color: rgba(255,255,255,0.7); }
-  .nav-avatar {
-    width: 30px; height: 30px; border-radius: 50%;
-    background: var(--accent); color: var(--navy);
-    display: grid; place-items: center; font-weight: 900; font-size: 13px; margin-left: 4px;
-  }
-
-  /* ── Header ── */
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 24px 64px; }
-  .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 22px; flex-wrap: wrap; }
-  .page-head h1 { font-size: 26px; font-weight: 900; letter-spacing: 0.02em; }
-  .page-head p { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
-  .count-pill {
-    background: var(--white); border: 1.5px solid var(--line); border-radius: 99px;
-    padding: 8px 16px; font-size: 13px; font-weight: 700; white-space: nowrap;
-    display: flex; align-items: baseline; gap: 5px;
-  }
-  .count-pill b { font-size: 19px; font-weight: 900; color: var(--navy); }
-
-  /* ── Search ── */
-  .search-wrap { position: relative; margin-bottom: 18px; }
-  .search-wrap .s-icon {
-    position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted);
-  }
-  .search-input {
-    width: 100%; font-family: inherit; font-size: 14.5px; color: var(--ink);
-    background: var(--white); border: 1.5px solid var(--line);
-    border-radius: 11px; padding: 14px 16px 14px 46px;
-    box-shadow: var(--shadow);
-    transition: border-color 0.18s, box-shadow 0.18s;
-  }
-  .search-input::placeholder { color: #B6B6BC; }
-  .search-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(248,212,35,0.22); }
-  .search-clear {
-    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-    border: none; background: var(--bg); cursor: pointer; color: var(--muted);
-    width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
-    transition: background 0.15s, color 0.15s;
-  }
-  .search-clear:hover { background: var(--line); color: var(--ink); }
-
-  /* ── Category filter ── */
-  .filters {
-    display: flex; gap: 9px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 22px;
-    scrollbar-width: thin;
-  }
-  .filters::-webkit-scrollbar { height: 6px; }
-  .filters::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
-  .filter-btn {
-    flex-shrink: 0; font-family: inherit; font-size: 13px; font-weight: 700;
-    color: var(--muted); background: var(--white); border: 1.5px solid var(--line);
-    border-radius: 99px; padding: 9px 18px; cursor: pointer; white-space: nowrap;
-    display: flex; align-items: center; gap: 7px;
-    transition: all 0.16s;
-  }
-  .filter-btn:hover { border-color: var(--muted); color: var(--ink); }
-  .filter-btn.active {
-    background: var(--accent); border-color: var(--accent); color: var(--ink);
-    box-shadow: 0 2px 8px rgba(248,212,35,0.4);
-  }
-  .filter-btn .fc {
-    font-size: 11px; font-weight: 900; background: var(--bg); color: var(--muted);
-    padding: 1px 7px; border-radius: 99px; min-width: 20px; text-align: center;
-  }
-  .filter-btn.active .fc { background: rgba(0,0,0,0.12); color: var(--ink); }
-
-  /* ── Grid ── */
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .card-art {
-    background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
-    overflow: hidden; cursor: pointer; display: flex; flex-direction: column;
-    transition: transform 0.12s, box-shadow 0.18s; border: 1.5px solid transparent;
-    text-decoration: none; color: inherit;
-  }
-  .card-art:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.14); border-color: rgba(248,212,35,0.6); }
-  .thumb {
-    background: var(--field); position: relative; overflow: hidden;
-    display: grid; place-items: center; min-height: 132px;
-  }
-  .thumb .ph-stripes { position: absolute; inset: 0; opacity: 0.5; }
-  .thumb .ph-label {
-    position: relative; font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 10px; color: var(--muted); background: rgba(255,255,255,0.85);
-    padding: 4px 8px; border-radius: 5px; letter-spacing: 0.02em;
-  }
-  .read-badge {
-    position: absolute; top: 10px; right: 10px;
-    font-size: 10.5px; font-weight: 900; padding: 4px 9px; border-radius: 99px;
-    display: flex; align-items: center; gap: 4px; z-index: 2;
-  }
-  .read-badge.done   { background: var(--accent); color: var(--ink); }
-  .read-badge.unread { background: var(--white); color: var(--muted); border: 1px solid var(--line); }
-  .card-body { padding: 15px 16px 17px; display: flex; flex-direction: column; flex: 1; }
-  .cat-tag {
-    align-self: flex-start; font-size: 10.5px; font-weight: 700;
-    padding: 3px 9px; border-radius: 6px; margin-bottom: 10px; letter-spacing: 0.02em;
-  }
-  .card-body h3 { font-size: 14.5px; font-weight: 700; line-height: 1.5; margin-bottom: 12px; text-wrap: pretty; flex: 1; }
-  .card-foot { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
-  .card-foot .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line); }
-
-  /* ── Category color palette (index-based) ── */
-  .cc-0 { background: rgba(248,212,35,0.22);  color: #8a7000; }
-  .cc-1 { background: rgba(26,58,107,0.10);   color: var(--navy); }
-  .cc-2 { background: rgba(107,70,193,0.12);  color: #5a37b0; }
-  .cc-3 { background: rgba(31,138,91,0.12);   color: var(--ok); }
-  .cc-4 { background: rgba(176,84,43,0.12);   color: #9c4a25; }
-  .cc-5 { background: rgba(220,53,69,0.10);   color: #b02a37; }
-  .cc-6 { background: rgba(13,202,240,0.12);  color: #0a7280; }
-  .cc-7 { background: rgba(102,16,242,0.10);  color: #5b0fa8; }
-
-  /* ── Loading skeleton ── */
-  .skeleton {
-    background: linear-gradient(90deg, var(--line) 25%, #f0f0f2 50%, var(--line) 75%);
-    background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px;
-  }
-  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-  .sk-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-  .sk-thumb { height: 132px; }
-  .sk-body { padding: 15px 16px; }
-  .sk-line { height: 12px; margin-bottom: 10px; }
-  .sk-line.short { width: 55%; }
-  .sk-line.med   { width: 80%; }
-  .sk-line.full  { width: 100%; }
-  .sk-filter { height: 38px; width: 110px; border-radius: 99px; }
-
-  /* ── Empty ── */
-  .empty {
-    grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--muted);
-  }
-  .empty .e-icon { color: var(--line); margin-bottom: 14px; }
-  .empty h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
-  .empty p { font-size: 13px; }
-
-  .foot { margin-top: 36px; font-size: 11px; color: #A0A0A6; text-align: center; letter-spacing: 0.02em; }
-
-  @media (max-width: 880px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 620px) {
-    .nav { padding: 0 16px; }
-    .nav-right .nav-link span.txt { display: none; }
-    .nav-link { padding: 8px; }
-    .wrap { padding: 22px 16px 52px; }
-    .page-head h1 { font-size: 22px; }
-    .grid { grid-template-columns: 1fr; }
-  }
+  *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+  body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+  #root{min-height:100%}a{color:inherit}
+  .nav{height:60px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:30}
+  .nav .brand{display:flex;align-items:center;gap:10px}
+  .brand-mark{width:28px;height:28px;border-radius:7px;background:var(--accent);display:grid;place-items:center;flex-shrink:0}
+  .brand-mark span{font-weight:900;font-size:16px;color:var(--navy);line-height:1}
+  .nav .brand-name{color:var(--white);font-weight:700;font-size:17px;letter-spacing:0.04em}
+  .nav-right{display:flex;align-items:center;gap:6px}
+  .nav-link{color:rgba(255,255,255,0.82);font-size:13px;font-weight:700;text-decoration:none;padding:8px 13px;border-radius:8px;display:flex;align-items:center;gap:7px;transition:color 0.15s,background 0.15s;cursor:pointer;background:none;border:none;font-family:inherit}
+  .nav-link:hover{color:var(--white);background:rgba(255,255,255,0.10)}
+  .nav-link.active{color:var(--white);background:rgba(255,255,255,0.13)}
+  .nav-link.logout{color:rgba(255,255,255,0.7)}
+  .nav-avatar{width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:13px;margin-left:4px}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 24px 64px}
+  .page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:22px;flex-wrap:wrap}
+  .page-head h1{font-size:26px;font-weight:900;letter-spacing:0.02em}
+  .page-head p{font-size:13.5px;color:var(--muted);margin-top:6px}
+  .count-pill{background:var(--white);border:1.5px solid var(--line);border-radius:99px;padding:8px 16px;font-size:13px;font-weight:700;white-space:nowrap;display:flex;align-items:baseline;gap:5px}
+  .count-pill b{font-size:19px;font-weight:900;color:var(--navy)}
+  .search-wrap{position:relative;margin-bottom:18px}
+  .search-wrap .s-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted)}
+  .search-input{width:100%;font-family:inherit;font-size:14.5px;color:var(--ink);background:var(--white);border:1.5px solid var(--line);border-radius:11px;padding:14px 16px 14px 46px;box-shadow:var(--shadow);transition:border-color 0.18s,box-shadow 0.18s}
+  .search-input::placeholder{color:#B6B6BC}
+  .search-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(248,212,35,0.22)}
+  .search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:none;background:var(--bg);cursor:pointer;color:var(--muted);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;transition:background 0.15s,color 0.15s}
+  .search-clear:hover{background:var(--line);color:var(--ink)}
+  .filters{display:flex;gap:9px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:thin}
+  .filters::-webkit-scrollbar{height:6px}
+  .filters::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+  .filter-btn{flex-shrink:0;font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--white);border:1.5px solid var(--line);border-radius:99px;padding:9px 18px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:7px;transition:all 0.16s}
+  .filter-btn:hover{border-color:var(--muted);color:var(--ink)}
+  .filter-btn.active{background:var(--accent);border-color:var(--accent);color:var(--ink);box-shadow:0 2px 8px rgba(248,212,35,0.4)}
+  .filter-btn .fc{font-size:11px;font-weight:900;background:var(--bg);color:var(--muted);padding:1px 7px;border-radius:99px;min-width:20px;text-align:center}
+  .filter-btn.active .fc{background:rgba(0,0,0,0.12);color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card-art{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform 0.12s,box-shadow 0.18s;border:1.5px solid transparent;text-decoration:none;color:inherit}
+  .card-art:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,0.14);border-color:rgba(248,212,35,0.6)}
+  /* ── サムネイル：noteに合わせて16:9（1280x670）アスペクト比 ── */
+  .thumb{background:var(--field);position:relative;overflow:hidden;display:grid;place-items:center;aspect-ratio:1280/670}
+  .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .thumb .ph-stripes{position:absolute;inset:0;opacity:0.5}
+  .thumb .ph-label{position:relative;font-family:ui-monospace,monospace;font-size:10px;color:var(--muted);background:rgba(255,255,255,0.85);padding:4px 8px;border-radius:5px}
+  .read-badge{position:absolute;top:10px;right:10px;font-size:10.5px;font-weight:900;padding:4px 9px;border-radius:99px;display:flex;align-items:center;gap:4px;z-index:2}
+  .read-badge.done{background:var(--accent);color:var(--ink)}
+  .read-badge.unread{background:var(--white);color:var(--muted);border:1px solid var(--line)}
+  .card-body{padding:15px 16px 17px;display:flex;flex-direction:column;flex:1}
+  .cat-tag{align-self:flex-start;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;margin-bottom:10px}
+  .card-body h3{font-size:14.5px;font-weight:700;line-height:1.5;margin-bottom:12px;flex:1}
+  .card-foot{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+  .card-foot .dot{width:3px;height:3px;border-radius:50%;background:var(--line)}
+  .cc-0{background:rgba(248,212,35,0.22);color:#8a7000}
+  .cc-1{background:rgba(26,58,107,0.10);color:var(--navy)}
+  .cc-2{background:rgba(107,70,193,0.12);color:#5a37b0}
+  .cc-3{background:rgba(31,138,91,0.12);color:var(--ok)}
+  .cc-4{background:rgba(176,84,43,0.12);color:#9c4a25}
+  .cc-5{background:rgba(220,53,69,0.10);color:#b02a37}
+  .cc-6{background:rgba(13,202,240,0.12);color:#0a7280}
+  .cc-7{background:rgba(102,16,242,0.10);color:#5b0fa8}
+  .skeleton{background:linear-gradient(90deg,var(--line) 25%,#f0f0f2 50%,var(--line) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .sk-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .sk-thumb{aspect-ratio:1280/670}
+  .sk-body{padding:15px 16px}
+  .sk-line{height:12px;margin-bottom:10px}
+  .sk-line.short{width:55%}.sk-line.med{width:80%}.sk-line.full{width:100%}
+  .sk-filter{height:38px;width:110px;border-radius:99px}
+  .empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+  .empty .e-icon{color:var(--line);margin-bottom:14px}
+  .empty h3{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .empty p{font-size:13px}
+  .foot{margin-top:36px;font-size:11px;color:#A0A0A6;text-align:center}
+  @media(max-width:880px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.nav{padding:0 16px}.nav-right .nav-link span.txt{display:none}.nav-link{padding:8px}.wrap{padding:22px 16px 52px}.page-head h1{font-size:22px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
 <script type="text/babel">
 const { useState, useEffect, useMemo } = React;
-
-/* ── GAS API エンドポイント ── */
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyk7ehj7Whvk6blfLjCMkFSi_XpAhpWXO473JTlQEoDhwd2gb574dCV9lxG6owkF_iTFw/exec';
-
-async function gasPost(body) {
-  const resp = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(body) });
-  return resp.json();
-}
-
-/* ── 日付フォーマット ── */
-function fmtDate(str) {
-  if (!str) return '';
-  const d = new Date(str);
-  if (isNaN(d)) return str;
-  return `${d.getMonth() + 1}月${d.getDate()}日`;
-}
-
-/* ── SVG helpers ── */
-function Stripes({ seed = 0 }) {
-  const id = "s" + seed;
-  return (
-    <svg className="ph-stripes" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <pattern id={id} width="14" height="14" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-          <rect width="14" height="14" fill="#FAFAFA"/>
-          <line x1="0" y1="0" x2="0" y2="14" stroke="#E4E4E7" strokeWidth="7"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill={"url(#" + id + ")"}/>
-    </svg>
-  );
-}
-function Check() {
-  return <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
-}
-
-/* ── Skeleton ── */
-function SkeletonGrid() {
-  return (
-    <div className="grid">
-      {[1,2,3,4,5,6].map(i => (
-        <div className="sk-card" key={i}>
-          <div className="sk-thumb skeleton"></div>
-          <div className="sk-body">
-            <div className="sk-line short skeleton"></div>
-            <div className="sk-line full skeleton"></div>
-            <div className="sk-line med skeleton"></div>
-            <div className="sk-line short skeleton"></div>
-          </div>
+async function gasPost(body){const r=await fetch(GAS_URL,{method:'POST',body:JSON.stringify(body)});return r.json()}
+function fmtDate(str){if(!str)return'';const d=new Date(str);if(isNaN(d))return str;return`${d.getMonth()+1}月${d.getDate()}日`}
+/* ── 読了時間を文字数から推定 ── */
+function estimateReadTime(a){const text=(a.title||'')+(a.description||'');return Math.max(1,Math.round((text.length+1500)/400))}
+function Stripes({seed=0}){
+  const id="s"+seed;
+  return(<svg className="ph-stripes" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
+    <defs><pattern id={id} width="14" height="14" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#FAFAFA"/><line x1="0" y1="0" x2="0" y2="14" stroke="#E4E4E7" strokeWidth="7"/></pattern></defs>
+    <rect width="100%" height="100%" fill={"url(#"+id+")"}/>
+  </svg>)}
+function Check(){return <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>}
+function SkeletonGrid(){return(
+  <div className="grid">
+    {[1,2,3,4,5,6].map(i=>(
+      <div className="sk-card" key={i}>
+        <div className="sk-thumb skeleton"></div>
+        <div className="sk-body">
+          <div className="sk-line short skeleton"></div>
+          <div className="sk-line full skeleton"></div>
+          <div className="sk-line med skeleton"></div>
+          <div className="sk-line short skeleton"></div>
         </div>
-      ))}
+      </div>
+    ))}
+  </div>
+)}
+/* ── サムネイル表示（画像あり/なし切り替え） ── */
+function ArticleThumb({article,seed}){
+  const url=article&&(article.thumbnail_url||article.thumb_url);
+  return(
+    <div className="thumb">
+      {url
+        ?<img src={url} alt={article.title||''} onError={e=>{e.target.style.display='none'}} />
+        :<React.Fragment><Stripes seed={seed}/><span className="ph-label">記事サムネイル</span></React.Fragment>}
     </div>
-  );
+  )
 }
-
-/* ── App ── */
-function App() {
-  const [user] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('jz_user') || '{}'); } catch { return {}; }
-  });
-
-  const [articles,   setArticles]   = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [readSet,    setReadSet]     = useState(new Set());
-  const [loading,    setLoading]     = useState(true);
-  const [catId,      setCatId]       = useState('all'); // 'all' | category id
-  const [q,          setQ]           = useState('');
-
-  /* ── 認証チェック & データ取得 ── */
-  useEffect(() => {
-    const token = localStorage.getItem('jz_token');
-    if (!token) { window.location.href = 'login.html'; return; }
-
-    (async () => {
-      try {
-        const [aData, lData, cData] = await Promise.all([
-          gasPost({ action: 'getArticles',    token }),
-          gasPost({ action: 'getReadingLogs', token }),
-          gasPost({ action: 'getCategories',  token }),
+function App(){
+  const [user]=useState(()=>{try{return JSON.parse(localStorage.getItem('jz_user')||'{}')}catch{return{}}});
+  const [articles,setArticles]=useState([]);
+  const [categories,setCategories]=useState([]);
+  const [readSet,setReadSet]=useState(new Set());
+  const [loading,setLoading]=useState(true);
+  const [catId,setCatId]=useState('all');
+  const [q,setQ]=useState('');
+  useEffect(()=>{
+    const token=localStorage.getItem('jz_token');
+    if(!token){window.location.href='login.html';return}
+    (async()=>{
+      try{
+        const [aData,lData,cData]=await Promise.all([
+          gasPost({action:'getArticles',token}),
+          gasPost({action:'getReadingLogs',token}),
+          gasPost({action:'getCategories',token}),
         ]);
-
-        /* トークン切れチェック */
-        if (aData.success === false && /認証|token|auth/i.test(aData.error || '')) {
-          localStorage.removeItem('jz_token');
-          localStorage.removeItem('jz_user');
-          window.location.href = 'login.html';
-          return;
-        }
-
-        if (aData.success) setArticles(aData.articles   || []);
-        if (cData.success) setCategories(cData.categories || []);
-        if (lData.success) {
-          const s = new Set((lData.logs || []).map(l => String(l.article_id)));
-          setReadSet(s);
-        }
-      } catch (e) {
-        console.error('fetch error', e);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  /* ── ログアウト ── */
-  async function handleLogout() {
-    const token = localStorage.getItem('jz_token');
-    try { await gasPost({ action: 'logout', token }); } catch {}
-    localStorage.removeItem('jz_token');
-    localStorage.removeItem('jz_user');
-    window.location.href = 'login.html';
-  }
-
-  /* ── カテゴリ名ルックアップ ── */
-  const catById = useMemo(() => {
-    const m = {};
-    categories.forEach(c => { m[String(c.id)] = c.name || ''; });
-    return m;
-  }, [categories]);
-
-  function catName(a) {
-    return catById[String(a.category_id)] || catById[String(a.category)] || a.category || '';
-  }
-
-  /* ── カテゴリ一覧（フィルターボタン用） ── */
-  const catList = useMemo(() => {
-    if (categories.length > 0) {
-      return [{ id: 'all', name: 'すべて' }, ...categories];
-    }
-    /* カテゴリ未取得時はarticlesから動的生成 */
-    const seen = new Map();
-    articles.forEach(a => {
-      const id   = String(a.category_id || a.category || '');
-      const name = a.category || id;
-      if (id && !seen.has(id)) seen.set(id, name);
-    });
-    return [{ id: 'all', name: 'すべて' }, ...Array.from(seen.entries()).map(([id, name]) => ({ id, name }))];
-  }, [categories, articles]);
-
-  /* カテゴリ番号 → CSS クラス (cc-0 〜 cc-7) */
-  const catColorIdx = useMemo(() => {
-    const m = {};
-    catList.filter(c => c.id !== 'all').forEach((c, i) => { m[String(c.id)] = i % 8; });
-    return m;
-  }, [catList]);
-
-  /* ── フィルター後の記事 ── */
-  const filtered = useMemo(() => {
-    const keyword = q.trim().toLowerCase();
-    return articles.filter(a => {
-      const matchCat = catId === 'all' || String(a.category_id || a.category) === catId;
-      const matchQ   = !keyword || a.title.toLowerCase().includes(keyword);
-      return matchCat && matchQ;
-    });
-  }, [articles, catId, q]);
-
-  /* カテゴリごとの記事数 */
-  const catCount = useMemo(() => {
-    const c = { all: articles.length };
-    articles.forEach(a => {
-      const id = String(a.category_id || a.category || '');
-      c[id] = (c[id] || 0) + 1;
-    });
-    return c;
-  }, [articles]);
-
-  const displayName = (user.name || 'ユーザー').split(/[\s　]/)[0];
-  const avatarChar  = displayName.charAt(0);
-
-  return (
+        if(aData.success===false&&/認証|token|auth/i.test(aData.error||'')){
+          localStorage.removeItem('jz_token');localStorage.removeItem('jz_user');
+          window.location.href='login.html';return}
+        if(aData.success)setArticles(aData.articles||[]);
+        if(cData.success)setCategories(cData.categories||[]);
+        if(lData.success){const s=new Set((lData.logs||[]).map(l=>String(l.article_id)));setReadSet(s)}
+      }catch(e){console.error(e)}finally{setLoading(false)}
+    })()
+  },[]);
+  async function handleLogout(){
+    const token=localStorage.getItem('jz_token');
+    try{await gasPost({action:'logout',token})}catch{}
+    localStorage.removeItem('jz_token');localStorage.removeItem('jz_user');
+    window.location.href='login.html'}
+  const catById=useMemo(()=>{const m={};categories.forEach(c=>{m[String(c.id)]=c.name||''});return m},[categories]);
+  function catName(a){return catById[String(a.category_id)]||catById[String(a.category)]||a.category||''}
+  const catList=useMemo(()=>{
+    if(categories.length>0)return[{id:'all',name:'すべて'},...categories];
+    const seen=new Map();
+    articles.forEach(a=>{const id=String(a.category_id||a.category||'');const name=a.category||id;if(id&&!seen.has(id))seen.set(id,name)});
+    return[{id:'all',name:'すべて'},...Array.from(seen.entries()).map(([id,name])=>({id,name}))];
+  },[categories,articles]);
+  const catColorIdx=useMemo(()=>{const m={};catList.filter(c=>c.id!=='all').forEach((c,i)=>{m[String(c.id)]=i%8});return m},[catList]);
+  const filtered=useMemo(()=>{
+    const keyword=q.trim().toLowerCase();
+    return articles.filter(a=>{
+      const matchCat=catId==='all'||String(a.category_id||a.category)===catId;
+      const matchQ=!keyword||a.title.toLowerCase().includes(keyword);
+      return matchCat&&matchQ})
+  },[articles,catId,q]);
+  const catCount=useMemo(()=>{
+    const c={all:articles.length};
+    articles.forEach(a=>{const id=String(a.category_id||a.category||'');c[id]=(c[id]||0)+1});
+    return c},[articles]);
+  const displayName=(user.name||'ユーザー').split(/[\s　]/)[0];
+  const avatarChar=displayName.charAt(0);
+  return(
     <React.Fragment>
-      {/* ── ナビゲーション ── */}
       <nav className="nav">
-        <div className="brand">
-          <div className="brand-mark"><span>ジ</span></div>
-          <div className="brand-name">ジブンゼミ</div>
-        </div>
+        <div className="brand"><div className="brand-mark"><span>ジ</span></div><div className="brand-name">ジブンゼミ</div></div>
         <div className="nav-right">
-          <a className="nav-link" href="home.html">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <span className="txt">ホーム</span>
-          </a>
-          <a className="nav-link active" href="articles.html">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            <span className="txt">記事一覧</span>
-          </a>
-          <a className="nav-link" href="mypage.html">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span className="txt">マイページ</span>
-          </a>
-          <button className="nav-link logout" onClick={handleLogout}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            <span className="txt">ログアウト</span>
-          </button>
+          <a className="nav-link" href="home.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span className="txt">ホーム</span></a>
+          <a className="nav-link active" href="articles.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span className="txt">記事一覧</span></a>
+          <a className="nav-link" href="mypage.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span className="txt">マイページ</span></a>
+          <button className="nav-link logout" onClick={handleLogout}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span className="txt">ログアウト</span></button>
           <div className="nav-avatar">{avatarChar}</div>
         </div>
       </nav>
-
       <div className="wrap">
-        {/* ── ページヘッダー ── */}
         <div className="page-head">
-          <div>
-            <h1>記事一覧</h1>
-            <p>目的別に整理されたキャリア・自己分析の記事を探せます。</p>
-          </div>
+          <div><h1>記事一覧</h1><p>目的別に整理されたキャリア・自己分析の記事を探せます。</p></div>
           <div className="count-pill"><b>{filtered.length}</b> 件</div>
         </div>
-
-        {/* ── 検索 ── */}
         <div className="search-wrap">
-          <span className="s-icon">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </span>
-          <input className="search-input" type="text" placeholder="キーワードで記事を検索（例：自己PR、面接、軸）"
-            value={q} onChange={e => setQ(e.target.value)} />
-          {q && (
-            <button className="search-clear" aria-label="クリア" onClick={() => setQ("")}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          )}
+          <span className="s-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <input className="search-input" type="text" placeholder="キーワードで記事を検索（例：自己PR、面接、軸）" value={q} onChange={e=>setQ(e.target.value)} />
+          {q&&<button className="search-clear" aria-label="クリア" onClick={()=>setQ("")}><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>}
         </div>
-
-        {/* ── カテゴリフィルター ── */}
         <div className="filters">
-          {loading ? (
-            [1,2,3,4].map(i => <div key={i} className="sk-filter skeleton"></div>)
-          ) : catList.map(c => (
-            <button key={c.id}
-              className={"filter-btn" + (catId === c.id ? " active" : "")}
-              onClick={() => setCatId(c.id)}>
-              {c.name}
-              <span className="fc">{catCount[c.id] || 0}</span>
-            </button>
-          ))}
+          {loading?[1,2,3,4].map(i=><div key={i} className="sk-filter skeleton"></div>)
+            :catList.map(c=>(
+              <button key={c.id} className={"filter-btn"+(catId===c.id?" active":"")} onClick={()=>setCatId(c.id)}>
+                {c.name}<span className="fc">{catCount[c.id]||0}</span>
+              </button>
+            ))}
         </div>
-
-        {/* ── 記事グリッド ── */}
-        {loading ? <SkeletonGrid /> : (
+        {loading?<SkeletonGrid />:(
           <div className="grid">
-            {filtered.length === 0 ? (
+            {filtered.length===0?(
               <div className="empty">
-                <div className="e-icon">
-                  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                </div>
-                <h3>該当する記事が見つかりません</h3>
-                <p>キーワードやカテゴリを変えてお試しください。</p>
+                <div className="e-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                <h3>該当する記事が見つかりません</h3><p>キーワードやカテゴリを変えてお試しください。</p>
               </div>
-            ) : filtered.map((a, i) => {
-              const isRead = readSet.has(String(a.id));
-              const name   = catName(a);
-              const cidStr = String(a.category_id || a.category || '');
-              const ccIdx  = catColorIdx[cidStr] ?? 0;
-              return (
+            ):filtered.map((a,i)=>{
+              const isRead=readSet.has(String(a.id));
+              const name=catName(a);
+              const cidStr=String(a.category_id||a.category||'');
+              const ccIdx=catColorIdx[cidStr]??0;
+              return(
                 <a className="card-art" key={a.id} href={`article_detail.html?id=${a.id}`}>
-                  <div style={{ position: "relative" }}>
-                    <span className={"read-badge " + (isRead ? "done" : "unread")}>
-                      {isRead ? <React.Fragment><Check />読了</React.Fragment> : "未読"}
+                  <div style={{position:"relative"}}>
+                    <span className={"read-badge "+(isRead?"done":"unread")}>
+                      {isRead?<React.Fragment><Check />読了</React.Fragment>:"未読"}
                     </span>
-                    <div className="thumb">
-                      <Stripes seed={i + 1} />
-                      <span className="ph-label">記事サムネイル</span>
-                    </div>
+                    {/* ── サムネイル表示（画像あり/なし対応） ── */}
+                    <ArticleThumb article={a} seed={i+1} />
                   </div>
                   <div className="card-body">
-                    {name && <span className={"cat-tag cc-" + ccIdx}>{name}</span>}
+                    {name&&<span className={"cat-tag cc-"+ccIdx}>{name}</span>}
                     <h3>{a.title}</h3>
                     <div className="card-foot">
-                      <span>{fmtDate(a.published_date || a.created_at)}</span>
+                      <span>{fmtDate(a.created_at)}</span>
                       <span className="dot"></span>
-                      <span>約{a.reading_time || a.read_time || '?'}分で読める</span>
+                      {/* ── 読了時間を推定値で表示 ── */}
+                      <span>約{estimateReadTime(a)}分で読める</span>
                     </div>
                   </div>
                 </a>
-              );
+              )
             })}
           </div>
         )}
-
         <div className="foot">© 2026 ジブンゼミ　月額500円のキャリア支援サブスク</div>
       </div>
     </React.Fragment>
   );
 }
-
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 </script>
 </body>
