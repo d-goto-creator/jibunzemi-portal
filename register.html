@@ -501,18 +501,14 @@ function App() {
 
     setLoading(true);
     try {
-      /* 電話番号からハイフン・スペース除去 */
-      const identifier = method === "phone"
-        ? vals.phone.replace(/[-\s]/g, "")
-        : vals.note.trim();
-
+      /* ── ここが修正箇所 ── */
       const resp = await fetch(GAS_URL, {
         method: 'POST',
-        /* Content-Type 未設定 → text/plain → CORSプリフライト不要 */
         body: JSON.stringify({
           action: 'register',
           name: vals.name.trim(),
-          identifier,
+          phone: method === 'phone' ? vals.phone.replace(/[-\s]/g, '') : '',
+          note_id: method === 'note' ? vals.note.trim() : '',
           password: vals.pw
         })
       });
