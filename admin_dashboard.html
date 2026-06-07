@@ -9,73 +9,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #F4F4F5;
-    --accent: #F8D423;
-    --accent-press: #E8C40F;
-    --navy: #1A3A6B;
-    --navy-deep: #15315b;
-    --ink: #1F1F1F;
-    --white: #FFFFFF;
-    --muted: #6B6B70;
-    --line: #E4E4E7;
-    --field: #FAFAFA;
-    --radius: 12px;
-    --shadow: 0 4px 16px rgba(0,0,0,0.12);
-    --ok: #1F8A5B;
-    --danger: #C0392B;
+    --bg: #F4F4F5; --accent: #F8D423; --accent-press: #E8C40F;
+    --navy: #1A3A6B; --navy-deep: #15315b; --ink: #1F1F1F;
+    --white: #FFFFFF; --muted: #6B6B70; --line: #E4E4E7;
+    --field: #FAFAFA; --radius: 12px; --shadow: 0 4px 16px rgba(0,0,0,0.12);
+    --ok: #1F8A5B; --danger: #C0392B;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
-  body {
-    font-family: "Noto Sans JP", sans-serif;
-    background: var(--bg); color: var(--ink);
-    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-  }
+  body { font-family: "Noto Sans JP", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
   #root { min-height: 100%; }
-
   .shell { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
-
-  /* ── Sidebar ── */
   .sidebar { background: var(--navy); color: var(--white); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; }
   .sb-brand { display: flex; align-items: center; gap: 11px; padding: 20px 22px; border-bottom: 1px solid rgba(255,255,255,0.10); }
   .sb-brand .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
   .sb-brand .mark span { font-weight: 900; font-size: 17px; color: var(--navy); }
-  .sb-brand .t { line-height: 1.2; }
   .sb-brand .t .n { font-weight: 700; font-size: 15px; letter-spacing: 0.03em; }
   .sb-brand .t .s { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 700; letter-spacing: 0.08em; }
-
   .sb-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 3px; overflow-y: auto; }
   .sb-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; padding: 10px 12px 6px; }
-  .sb-item {
-    display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 9px;
-    color: rgba(255,255,255,0.78); font-size: 13.5px; font-weight: 700; cursor: pointer;
-    border: none; background: none; font-family: inherit; text-align: left; width: 100%;
-    text-decoration: none; transition: background 0.15s, color 0.15s;
-  }
+  .sb-item { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 9px; color: rgba(255,255,255,0.78); font-size: 13.5px; font-weight: 700; cursor: pointer; border: none; background: none; font-family: inherit; text-align: left; width: 100%; text-decoration: none; transition: background 0.15s, color 0.15s; }
   .sb-item:hover { background: rgba(255,255,255,0.08); color: var(--white); }
   .sb-item.active { background: var(--accent); color: var(--ink); }
   .sb-item .badge { margin-left: auto; font-size: 10.5px; font-weight: 900; background: var(--accent); color: var(--ink); min-width: 19px; height: 19px; padding: 0 5px; border-radius: 99px; display: grid; place-items: center; }
   .sb-item.active .badge { background: var(--navy); color: var(--white); }
-
   .sb-foot { padding: 14px; border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-direction: column; gap: 8px; }
   .sb-user { display: flex; align-items: center; gap: 11px; padding: 8px 6px; }
   .sb-user .av { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--navy); display: grid; place-items: center; font-weight: 900; font-size: 14px; flex-shrink: 0; }
-  .sb-user .u { line-height: 1.3; }
   .sb-user .u .un { font-size: 13px; font-weight: 700; }
   .sb-user .u .ur { font-size: 10.5px; color: rgba(255,255,255,0.55); }
   .sb-logout { display: flex; align-items: center; gap: 9px; font-family: inherit; font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.6); background: none; border: none; cursor: pointer; padding: 8px 10px; border-radius: 8px; width: 100%; transition: all 0.15s; }
   .sb-logout:hover { color: #ff8a7a; background: rgba(192,57,43,0.12); }
-
-  /* ── Main ── */
   .main { padding: 26px 32px 48px; max-width: 1180px; width: 100%; }
   .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
   .topbar h1 { font-size: 23px; font-weight: 900; }
   .topbar .sub { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
   .topbar .date-chip { font-size: 12.5px; color: var(--muted); background: var(--white); border: 1.5px solid var(--line); padding: 9px 15px; border-radius: 10px; font-weight: 700; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-
-  /* KPI */
   .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 28px; }
-  .kpi { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 22px; position: relative; overflow: hidden; }
+  .kpi { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 22px; }
   .kpi.alert { background: linear-gradient(135deg, #FFFBE8 0%, #FFFFFF 60%); border: 1.5px solid var(--accent); }
   .kpi .k-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
   .kpi .k-ic { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; }
@@ -83,28 +54,20 @@
   .kpi .k-ic.c2 { background: var(--accent); color: var(--ink); }
   .kpi .k-ic.c3 { background: rgba(31,138,91,0.12); color: var(--ok); }
   .kpi .k-ic.c4 { background: rgba(107,70,193,0.12); color: #5a37b0; }
-  .kpi .k-trend { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 99px; display: flex; align-items: center; gap: 3px; }
-  .kpi .k-trend.up { background: rgba(31,138,91,0.10); color: var(--ok); }
+  .kpi .k-trend { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 99px; }
   .kpi .k-trend.flag { background: var(--accent); color: var(--ink); }
   .kpi .k-val { font-size: 32px; font-weight: 900; line-height: 1; display: flex; align-items: baseline; gap: 4px; }
   .kpi .k-val .unit { font-size: 15px; font-weight: 700; color: var(--muted); }
   .kpi .k-label { font-size: 12.5px; color: var(--muted); font-weight: 700; margin-top: 9px; }
   .kpi .k-note { font-size: 11.5px; font-weight: 700; color: #9a7d00; margin-top: 8px; display: flex; align-items: center; gap: 5px; }
-
-  /* skeleton */
   @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
   .skel { background: linear-gradient(90deg, #eee 25%, #f8f8f8 50%, #eee 75%); background-size: 200% 100%; animation: shimmer 1.3s infinite; border-radius: 6px; }
-
-  /* ── Content grid ── */
   .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 22px; align-items: start; }
-
   .panel { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
   .panel-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--line); }
   .panel-head h2 { font-size: 15px; font-weight: 900; display: flex; align-items: center; gap: 9px; }
   .panel-head h2 .tick { width: 5px; height: 16px; background: var(--accent); border-radius: 2px; }
   .panel-head .pill { font-size: 11px; font-weight: 900; background: var(--accent); color: var(--ink); padding: 3px 10px; border-radius: 99px; }
-
-  /* Table */
   table { width: 100%; border-collapse: collapse; }
   thead th { font-size: 11px; font-weight: 700; color: var(--muted); text-align: left; padding: 12px 22px; background: var(--field); letter-spacing: 0.03em; }
   tbody td { padding: 14px 22px; font-size: 13px; border-top: 1px solid var(--line); vertical-align: middle; }
@@ -115,10 +78,7 @@
   .m-pill.phone { background: rgba(248,212,35,0.22); color: #8a7000; }
   .m-pill.note { background: rgba(26,58,107,0.10); color: var(--navy); }
   .row-actions { display: flex; gap: 8px; justify-content: flex-end; }
-  .btn-ap, .btn-rj {
-    font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 8px; padding: 8px 13px;
-    cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; border: 1.5px solid transparent;
-  }
+  .btn-ap, .btn-rj { font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 8px; padding: 8px 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; border: 1.5px solid transparent; }
   .btn-ap { background: var(--accent); color: var(--ink); }
   .btn-ap:hover { background: var(--accent-press); }
   .btn-ap:disabled { background: #eee; color: #aaa; cursor: not-allowed; }
@@ -129,41 +89,25 @@
   .status-tag.approved { background: rgba(31,138,91,0.12); color: var(--ok); }
   .status-tag.rejected { background: rgba(192,57,43,0.10); color: var(--danger); }
   .empty-row td { text-align: center; color: var(--muted); padding: 36px; font-size: 13px; }
-
-  /* Activity */
   .activity { padding: 8px 0; }
   .act-row { display: flex; gap: 13px; padding: 13px 22px; }
-  .act-dot { width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0; display: grid; place-items: center; }
-  .act-dot.add  { background: rgba(31,138,91,0.12); color: var(--ok); }
-  .act-dot.user { background: rgba(26,58,107,0.10); color: var(--navy); }
-  .act-dot.pdf  { background: rgba(192,57,43,0.10); color: var(--danger); }
-  .act-dot.cat  { background: rgba(107,70,193,0.12); color: #5a37b0; }
-  .act-body { flex: 1; }
+  .act-dot { width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0; display: grid; place-items: center; background: rgba(26,58,107,0.10); color: var(--navy); }
   .act-body .at { font-size: 12.5px; line-height: 1.5; }
-  .act-body .at b { font-weight: 700; }
   .act-body .atime { font-size: 11px; color: var(--muted); margin-top: 3px; }
-
   .spinner { width: 16px; height: 16px; border: 2.5px solid rgba(26,58,107,0.15); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .loading-center { display: flex; justify-content: center; padding: 40px; }
-
-  @media (max-width: 1100px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .content-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } .content-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
 <script type="text/babel">
 const { useState, useEffect } = React;
 
-/* ── GAS API エンドポイント ── */
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyk7ehj7Whvk6blfLjCMkFSi_XpAhpWXO473JTlQEoDhwd2gb574dCV9lxG6owkF_iTFw/exec';
 
 async function gasPost(body) {
@@ -171,13 +115,11 @@ async function gasPost(body) {
   return resp.json();
 }
 
-/* ── 日付フォーマット ── */
 function fmtJpDate(d) {
   const days = ['日','月','火','水','木','金','土'];
   return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${days[d.getDay()]}）`;
 }
 
-/* ── 相対時刻 ── */
 function relTime(str) {
   if (!str) return '';
   const d = new Date(str);
@@ -189,7 +131,6 @@ function relTime(str) {
   return `${Math.floor(sec/86400)}日前`;
 }
 
-/* ── 電話番号フォーマット ── */
 function fmtPhone(s) {
   const d = String(s || '').replace(/\D/g,'');
   if (d.length === 11) return d.slice(0,3)+'-'+d.slice(3,7)+'-'+d.slice(7);
@@ -197,7 +138,6 @@ function fmtPhone(s) {
   return s;
 }
 
-/* ── Icon ── */
 function Ic({ size = 18, children }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{children}</svg>;
 }
@@ -211,42 +151,30 @@ const NAV_ITEMS = [
   { key: "stats",    label: "統計",           href: "admin_stats.html",      icon: <><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></> },
 ];
 
-/* ── アクティビティアイコン ── */
-function ActIcon({ type }) {
-  if (type === 'add')  return <Ic size={16}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></Ic>;
-  if (type === 'user') return <Ic size={16}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></Ic>;
-  if (type === 'pdf')  return <Ic size={16}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></Ic>;
-  if (type === 'cat')  return <Ic size={16}><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></Ic>;
-  return <Ic size={16}><circle cx="12" cy="12" r="10"/></Ic>;
-}
-
 function App() {
-  /* ── 管理者認証ガード ── */
   const adminToken = localStorage.getItem('jz_admin_token');
-  const adminUser  = (() => { try { return JSON.parse(localStorage.getItem('jz_admin_user') || '{}'); } catch { return {}; } })();
   if (!adminToken) { window.location.href = 'admin_login.html'; return null; }
 
-  /* ── State ── */
-  const [stats,    setStats]    = useState(null);
-  const [pending,  setPending]  = useState([]);   // 承認待ちユーザー
-  const [resolved, setResolved] = useState([]);   // 処理済み (ローカル管理)
-  const [activity, setActivity] = useState([]);
-  const [loading,  setLoading]  = useState(true);
-  const [busy,     setBusy]     = useState({});   // userId → true while API in flight
+  const adminUser = (() => { try { return JSON.parse(localStorage.getItem('jz_admin_user') || '{}'); } catch { return {}; } })();
 
-  /* ── 初期データ取得 ── */
+  const [stats,    setStats]    = useState(null);
+  const [pending,  setPending]  = useState([]);
+  const [resolved, setResolved] = useState([]);
+  const [loading,  setLoading]  = useState(true);
+  const [busy,     setBusy]     = useState({});
+
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
-        const [sData, pData, aData] = await Promise.all([
-          gasPost({ action: 'getAdminStats',    adminToken }),
-          gasPost({ action: 'getPendingUsers',  adminToken }),
-          gasPost({ action: 'getAdminActivity', adminToken }),
+        /* ── GASの実際のアクション名を使用 ── */
+        const [statsData, usersData] = await Promise.all([
+          gasPost({ action: 'adminGetStats', token: adminToken }),
+          gasPost({ action: 'adminGetUsers', token: adminToken }),
         ]);
 
-        // セッション切れチェック
-        for (const d of [sData, pData, aData]) {
+        /* セッション切れチェック */
+        for (const d of [statsData, usersData]) {
           if (d.success === false && /認証|token|auth/i.test(d.error || '')) {
             localStorage.removeItem('jz_admin_token');
             localStorage.removeItem('jz_admin_user');
@@ -255,11 +183,15 @@ function App() {
           }
         }
 
-        if (sData.success) setStats(sData);
-        if (pData.success) setPending(pData.users || []);
-        if (aData.success) setActivity(aData.activities || []);
+        if (statsData.success) setStats(statsData.summary || {});
+
+        /* pendingユーザーだけ抽出 */
+        if (usersData.success) {
+          const pendingUsers = (usersData.users || []).filter(u => u.status === 'pending');
+          setPending(pendingUsers);
+        }
       } catch (e) {
-        console.error('Admin dashboard load error:', e);
+        console.error('Dashboard load error:', e);
       } finally {
         setLoading(false);
       }
@@ -270,18 +202,11 @@ function App() {
   async function handleApprove(user) {
     setBusy(b => ({ ...b, [user.id]: true }));
     try {
-      const res = await gasPost({ action: 'approveUser', adminToken, userId: user.id });
-      if (res.success === false && /認証|token|auth/i.test(res.error || '')) {
-        localStorage.removeItem('jz_admin_token');
-        localStorage.removeItem('jz_admin_user');
-        window.location.href = 'admin_login.html';
-        return;
-      }
-      if (res.success || res.ok) {
+      const res = await gasPost({ action: 'adminUpdateUser', token: adminToken, id: user.id, status: 'active' });
+      if (res.success) {
         setPending(p => p.filter(u => u.id !== user.id));
-        setResolved(r => [{ ...user, status: 'approved' }, ...r]);
-        // バッジカウント更新
-        setStats(s => s ? { ...s, pendingCount: Math.max(0, (s.pendingCount || 1) - 1) } : s);
+        setResolved(r => [{ ...user, resolvedStatus: 'approved' }, ...r]);
+        setStats(s => s ? { ...s, pending_users: Math.max(0, (s.pending_users || 1) - 1), active_users: (s.active_users || 0) + 1 } : s);
       }
     } catch (e) {
       console.error('approveUser error:', e);
@@ -290,21 +215,15 @@ function App() {
     }
   }
 
-  /* ── 却下 ── */
+  /* ── 却下（停止） ── */
   async function handleReject(user) {
     setBusy(b => ({ ...b, [user.id]: true }));
     try {
-      const res = await gasPost({ action: 'rejectUser', adminToken, userId: user.id });
-      if (res.success === false && /認証|token|auth/i.test(res.error || '')) {
-        localStorage.removeItem('jz_admin_token');
-        localStorage.removeItem('jz_admin_user');
-        window.location.href = 'admin_login.html';
-        return;
-      }
-      if (res.success || res.ok) {
+      const res = await gasPost({ action: 'adminUpdateUser', token: adminToken, id: user.id, status: 'suspended' });
+      if (res.success) {
         setPending(p => p.filter(u => u.id !== user.id));
-        setResolved(r => [{ ...user, status: 'rejected' }, ...r]);
-        setStats(s => s ? { ...s, pendingCount: Math.max(0, (s.pendingCount || 1) - 1) } : s);
+        setResolved(r => [{ ...user, resolvedStatus: 'rejected' }, ...r]);
+        setStats(s => s ? { ...s, pending_users: Math.max(0, (s.pending_users || 1) - 1) } : s);
       }
     } catch (e) {
       console.error('rejectUser error:', e);
@@ -315,23 +234,19 @@ function App() {
 
   /* ── ログアウト ── */
   async function handleLogout() {
-    try { await gasPost({ action: 'adminLogout', adminToken }); } catch {}
+    try { await gasPost({ action: 'logout', token: adminToken }); } catch {}
     localStorage.removeItem('jz_admin_token');
     localStorage.removeItem('jz_admin_user');
     window.location.href = 'admin_login.html';
   }
 
-  /* ── ヘルパー ── */
-  function isPhone(identifier) { return /^\d{9,11}$/.test(String(identifier || '')); }
   function getInitial(name) { return String(name || 'U').replace(/\s+/,'').charAt(0); }
 
-  const pendingCount = stats ? (stats.pendingCount ?? pending.length) : pending.length;
+  const pendingCount = pending.length;
   const adminName    = adminUser.name || 'Admin';
-  const adminInitial = getInitial(adminName);
 
   return (
     <div className="shell">
-      {/* ── サイドバー ── */}
       <aside className="sidebar">
         <div className="sb-brand">
           <div className="mark"><span>ジ</span></div>
@@ -343,20 +258,16 @@ function App() {
         <nav className="sb-nav">
           <div className="sb-label">メニュー</div>
           {NAV_ITEMS.map(n => (
-            <a key={n.key}
-               href={n.href}
-               className={"sb-item" + (n.key === "dash" ? " active" : "")}>
+            <a key={n.key} href={n.href} className={"sb-item" + (n.key === "dash" ? " active" : "")}>
               <Ic>{n.icon}</Ic>
               {n.label}
-              {n.showBadge && pendingCount > 0 && (
-                <span className="badge">{pendingCount}</span>
-              )}
+              {n.showBadge && pendingCount > 0 && <span className="badge">{pendingCount}</span>}
             </a>
           ))}
         </nav>
         <div className="sb-foot">
           <div className="sb-user">
-            <div className="av">{adminInitial}</div>
+            <div className="av">{getInitial(adminName)}</div>
             <div className="u">
               <div className="un">{adminName}</div>
               <div className="ur">管理者</div>
@@ -369,7 +280,6 @@ function App() {
         </div>
       </aside>
 
-      {/* ── メインコンテンツ ── */}
       <main className="main">
         <div className="topbar">
           <div>
@@ -382,84 +292,49 @@ function App() {
           </div>
         </div>
 
-        {/* ── KPI カード ── */}
+        {/* KPI */}
         <div className="kpi-grid">
-          {/* 総会員数 */}
           <div className="kpi">
             <div className="k-top">
-              <div className="k-ic c1">
-                <Ic><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></Ic>
-              </div>
-              {stats && stats.userGrowth > 0 && (
-                <span className="k-trend up">＋{stats.userGrowth}</span>
-              )}
+              <div className="k-ic c1"><Ic><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></Ic></div>
             </div>
-            {loading
-              ? <div className="skel" style={{height:36, width:80, marginBottom:8}}></div>
-              : <div className="k-val">{stats ? stats.totalUsers ?? '---' : '---'}<span className="unit">人</span></div>
-            }
+            {loading ? <div className="skel" style={{height:36,width:80,marginBottom:8}}></div>
+              : <div className="k-val">{stats ? stats.total_users ?? 0 : 0}<span className="unit">人</span></div>}
             <div className="k-label">総会員数</div>
           </div>
 
-          {/* 新規申請 */}
           <div className={"kpi" + (pendingCount > 0 ? " alert" : "")}>
             <div className="k-top">
-              <div className="k-ic c2">
-                <Ic><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></Ic>
-              </div>
+              <div className="k-ic c2"><Ic><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></Ic></div>
               {pendingCount > 0 && <span className="k-trend flag">要対応</span>}
             </div>
-            {loading
-              ? <div className="skel" style={{height:36, width:60, marginBottom:8}}></div>
-              : <div className="k-val">{pendingCount}<span className="unit">件</span></div>
-            }
+            {loading ? <div className="skel" style={{height:36,width:60,marginBottom:8}}></div>
+              : <div className="k-val">{pendingCount}<span className="unit">件</span></div>}
             <div className="k-label">新規申請</div>
-            {pendingCount > 0 && (
-              <div className="k-note">
-                <Ic size={13}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></Ic>
-                承認待ちの申請があります
-              </div>
-            )}
+            {pendingCount > 0 && <div className="k-note">承認待ちの申請があります</div>}
           </div>
 
-          {/* 公開記事数 */}
           <div className="kpi">
             <div className="k-top">
-              <div className="k-ic c3">
-                <Ic><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></Ic>
-              </div>
-              {stats && stats.articleGrowth > 0 && (
-                <span className="k-trend up">＋{stats.articleGrowth}</span>
-              )}
+              <div className="k-ic c3"><Ic><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></Ic></div>
             </div>
-            {loading
-              ? <div className="skel" style={{height:36, width:70, marginBottom:8}}></div>
-              : <div className="k-val">{stats ? stats.articleCount ?? '---' : '---'}<span className="unit">本</span></div>
-            }
+            {loading ? <div className="skel" style={{height:36,width:70,marginBottom:8}}></div>
+              : <div className="k-val">{stats ? stats.published_articles ?? 0 : 0}<span className="unit">本</span></div>}
             <div className="k-label">公開記事数</div>
           </div>
 
-          {/* 月間PDF DL */}
           <div className="kpi">
             <div className="k-top">
-              <div className="k-ic c4">
-                <Ic><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></Ic>
-              </div>
-              {stats && stats.pdfDlGrowthPct > 0 && (
-                <span className="k-trend up">＋{stats.pdfDlGrowthPct}%</span>
-              )}
+              <div className="k-ic c4"><Ic><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></Ic></div>
             </div>
-            {loading
-              ? <div className="skel" style={{height:36, width:80, marginBottom:8}}></div>
-              : <div className="k-val">{stats ? stats.monthlyPdfDl ?? '---' : '---'}<span className="unit">件</span></div>
-            }
-            <div className="k-label">今月のPDF DL数</div>
+            {loading ? <div className="skel" style={{height:36,width:80,marginBottom:8}}></div>
+              : <div className="k-val">{stats ? stats.total_downloads ?? 0 : 0}<span className="unit">件</span></div>}
+            <div className="k-label">累計PDF DL数</div>
           </div>
         </div>
 
-        {/* ── コンテンツグリッド ── */}
+        {/* 申請一覧 */}
         <div className="content-grid">
-          {/* 申請一覧テーブル */}
           <div className="panel">
             <div className="panel-head">
               <h2><span className="tick"></span>新規申請一覧</h2>
@@ -472,18 +347,16 @@ function App() {
                 <thead>
                   <tr>
                     <th>氏名</th>
-                    <th>登録方式</th>
+                    <th>登録情報</th>
                     <th>申請日時</th>
                     <th style={{textAlign:'right'}}>操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {/* 未処理 */}
                   {pending.map(u => {
-                    const phone = isPhone(u.identifier);
-                    const contact = phone ? fmtPhone(u.identifier) : (u.identifier || '');
-                    const method = u.method || (phone ? 'phone' : 'note');
                     const isBusy = !!busy[u.id];
+                    const contact = u.phone ? fmtPhone(u.phone) : (u.note_id ? '@' + u.note_id : '---');
+                    const method = u.phone ? 'phone' : 'note';
                     return (
                       <tr key={u.id}>
                         <td>
@@ -496,23 +369,16 @@ function App() {
                           </div>
                         </td>
                         <td>
-                          <span className={"m-pill " + (method === 'phone' ? 'phone' : 'note')}>
-                            {method === 'phone'
-                              ? <React.Fragment><Ic size={11}><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="10" y1="18" x2="14" y2="18"/></Ic>電話番号</React.Fragment>
-                              : <React.Fragment><Ic size={11}><rect x="4" y="4" width="16" height="16"/><path d="M8 9h8M8 13h5"/></Ic>note</React.Fragment>
-                            }
+                          <span className={"m-pill " + method}>
+                            {method === 'phone' ? '電話番号' : 'note ID'}
                           </span>
                         </td>
-                        <td style={{color:'var(--muted)'}}>
-                          {u.created_at ? relTime(u.created_at) : (u.date || '---')}
-                        </td>
+                        <td style={{color:'var(--muted)'}}>{relTime(u.created_at)}</td>
                         <td>
                           <div className="row-actions">
                             <button className="btn-ap" onClick={() => handleApprove(u)} disabled={isBusy}>
-                              {isBusy
-                                ? <span className="spinner" style={{width:12,height:12,borderWidth:2}}></span>
-                                : <React.Fragment><Ic size={13}><polyline points="20 6 9 17 4 12"/></Ic>承認</React.Fragment>
-                              }
+                              {isBusy ? <span className="spinner" style={{width:12,height:12,borderWidth:2}}></span>
+                                : <React.Fragment><Ic size={13}><polyline points="20 6 9 17 4 12"/></Ic>承認</React.Fragment>}
                             </button>
                             <button className="btn-rj" onClick={() => handleReject(u)} disabled={isBusy}>
                               <Ic size={13}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Ic>
@@ -524,51 +390,31 @@ function App() {
                     );
                   })}
 
-                  {/* 処理済み（このセッション内） */}
-                  {resolved.map((r, i) => {
-                    const phone = isPhone(r.identifier);
-                    const contact = phone ? fmtPhone(r.identifier) : (r.identifier || '');
-                    const method = r.method || (phone ? 'phone' : 'note');
-                    return (
-                      <tr key={'r'+i} style={{opacity:0.65}}>
-                        <td>
-                          <div className="u-cell">
-                            <div className="av">{getInitial(r.name)}</div>
-                            <div>
-                              <div className="un">{r.name}</div>
-                              <div style={{fontSize:'11px',color:'var(--muted)'}}>{contact}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <span className={"m-pill " + (method === 'phone' ? 'phone' : 'note')}>
-                            {method === 'phone' ? '電話番号' : 'note'}
-                          </span>
-                        </td>
-                        <td style={{color:'var(--muted)'}}>{r.created_at ? relTime(r.created_at) : (r.date || '---')}</td>
-                        <td>
-                          <div className="row-actions">
-                            <span className={"status-tag " + r.status}>
-                              {r.status === 'approved'
-                                ? <React.Fragment><Ic size={12}><polyline points="20 6 9 17 4 12"/></Ic>承認済み</React.Fragment>
-                                : <React.Fragment><Ic size={12}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Ic>却下済み</React.Fragment>
-                              }
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-
-                  {/* 空状態 */}
-                  {pending.length === 0 && resolved.length === 0 && (
-                    <tr className="empty-row">
-                      <td colSpan="4">
-                        <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:8}}>
-                          <Ic size={28}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></Ic>
-                          未処理の申請はありません
+                  {resolved.map((r, i) => (
+                    <tr key={'r'+i} style={{opacity:0.65}}>
+                      <td>
+                        <div className="u-cell">
+                          <div className="av">{getInitial(r.name)}</div>
+                          <div><div className="un">{r.name}</div></div>
                         </div>
                       </td>
+                      <td><span className={"m-pill " + (r.phone ? 'phone' : 'note')}>{r.phone ? '電話番号' : 'note ID'}</span></td>
+                      <td style={{color:'var(--muted)'}}>{relTime(r.created_at)}</td>
+                      <td>
+                        <div className="row-actions">
+                          <span className={"status-tag " + (r.resolvedStatus === 'approved' ? 'approved' : 'rejected')}>
+                            {r.resolvedStatus === 'approved'
+                              ? <React.Fragment><Ic size={12}><polyline points="20 6 9 17 4 12"/></Ic>承認済み</React.Fragment>
+                              : <React.Fragment><Ic size={12}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Ic>却下済み</React.Fragment>}
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+
+                  {pending.length === 0 && resolved.length === 0 && (
+                    <tr className="empty-row">
+                      <td colSpan="4">未処理の申請はありません</td>
                     </tr>
                   )}
                 </tbody>
@@ -576,30 +422,30 @@ function App() {
             )}
           </div>
 
-          {/* アクティビティ */}
+          {/* サマリーパネル */}
           <div className="panel">
-            <div className="panel-head"><h2><span className="tick"></span>直近アクティビティ</h2></div>
-            {loading ? (
-              <div className="loading-center"><span className="spinner"></span></div>
-            ) : activity.length > 0 ? (
-              <div className="activity">
-                {activity.map((a, i) => (
-                  <div className="act-row" key={i}>
-                    <div className={"act-dot " + (a.type || 'add')}>
-                      <ActIcon type={a.type} />
+            <div className="panel-head"><h2><span className="tick"></span>会員サマリー</h2></div>
+            <div className="activity">
+              {loading ? <div className="loading-center"><span className="spinner"></span></div> : (
+                <React.Fragment>
+                  {[
+                    { label: '総会員数',     val: stats ? stats.total_users ?? 0 : 0,      unit: '人' },
+                    { label: 'アクティブ',   val: stats ? stats.active_users ?? 0 : 0,     unit: '人' },
+                    { label: '承認待ち',     val: stats ? stats.pending_users ?? 0 : 0,    unit: '人' },
+                    { label: '総記事数',     val: stats ? stats.total_articles ?? 0 : 0,   unit: '本' },
+                    { label: '公開記事',     val: stats ? stats.published_articles ?? 0 : 0, unit: '本' },
+                    { label: 'PDF総数',      val: stats ? stats.total_pdfs ?? 0 : 0,       unit: '件' },
+                    { label: '累計閲覧',     val: stats ? stats.total_reads ?? 0 : 0,      unit: '回' },
+                    { label: '累計DL',       val: stats ? stats.total_downloads ?? 0 : 0,  unit: '件' },
+                  ].map(({ label, val, unit }) => (
+                    <div key={label} className="act-row" style={{justifyContent:'space-between',alignItems:'center',borderTop:'1px solid var(--line)',padding:'12px 22px'}}>
+                      <span style={{fontSize:'13px',color:'var(--muted)',fontWeight:700}}>{label}</span>
+                      <span style={{fontSize:'18px',fontWeight:900}}>{val}<span style={{fontSize:'12px',color:'var(--muted)',marginLeft:3}}>{unit}</span></span>
                     </div>
-                    <div className="act-body">
-                      <div className="at" dangerouslySetInnerHTML={{ __html: a.text || a.html || '' }} />
-                      <div className="atime">{a.time || (a.created_at ? relTime(a.created_at) : '')}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="activity" style={{padding:'30px 22px',color:'var(--muted)',fontSize:'13px',textAlign:'center'}}>
-                アクティビティはありません
-              </div>
-            )}
+                  ))}
+                </React.Fragment>
+              )}
+            </div>
           </div>
         </div>
       </main>
