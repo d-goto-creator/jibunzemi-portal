@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ジブンゼミ｜学習進捗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F4F4F5;
+    --accent: #F8D423;
+    --accent-press: #E8C40F;
+    --navy: #1A3A6B;
+    --ink: #1F1F1F;
+    --white: #FFFFFF;
+    --muted: #6B6B70;
+    --line: #E4E4E7;
+    --field: #FAFAFA;
+    --radius: 12px;
+    --shadow: 0 4px 16px rgba(0,0,0,0.12);
+    --ok: #1F8A5B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { font-family: "Noto Sans JP", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  #root { min-height: 100%; }
+  a { color: inherit; }
+
+  /* ── Nav ── */
+  .nav { height: 60px; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 30; }
+  .nav .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 7px; background: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
+  .brand-mark span { font-weight: 900; font-size: 16px; color: var(--navy); line-height: 1; }
+  .nav .brand-name { color: var(--white); font-weight: 700; font-size: 17px; letter-spacing: 0.04em; }
+  .nav-right { display: flex; align-items: center; gap: 6px; }
+  .nav-link { color: rgba(255,255,255,0.82); font-size: 13px; font-weight: 700; text-decoration: none; padding: 8px 13px; border-radius: 8px; display: flex; align-items: center; gap: 7px; transition: color 0.15s, background 0.15s; cursor: pointer; background: none; border: none; font-family: inherit; }
+  .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.10); }
+  .nav-link.active { color: var(--white); background: rgba(255,255,255,0.13); }
+  .nav-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--navy); display: grid; place-items: center; font-weight: 900; font-size: 13px; margin-left: 4px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 24px 64px; }
+  .page-head { margin-bottom: 22px; }
+  .page-head h1 { font-size: 26px; font-weight: 900; letter-spacing: 0.02em; }
+  .page-head p { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
+
+  /* ── Overall summary ── */
+  .summary { background: var(--navy); color: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 30px 32px; margin-bottom: 28px; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; }
+  .sum-left .s-label { font-size: 12.5px; color: rgba(255,255,255,0.7); font-weight: 700; letter-spacing: 0.04em; margin-bottom: 12px; }
+  .sum-fig { display: flex; align-items: baseline; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+  .sum-fig .big { font-size: 58px; font-weight: 900; line-height: 0.9; letter-spacing: 0.01em; }
+  .sum-fig .frac { font-size: 17px; color: rgba(255,255,255,0.82); font-weight: 500; }
+  .sum-fig .frac b { color: var(--accent); font-weight: 900; font-size: 22px; }
+  .big-bar { height: 14px; background: rgba(255,255,255,0.16); border-radius: 99px; overflow: hidden; }
+  .big-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; width: 0; transition: width 1.2s cubic-bezier(.2,.7,.2,1); }
+  .sum-right { display: flex; gap: 26px; }
+  .sum-stat { text-align: center; }
+  .sum-stat .n { font-size: 30px; font-weight: 900; line-height: 1; }
+  .sum-stat .n.gold { color: var(--accent); }
+  .sum-stat .t { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 700; margin-top: 8px; white-space: nowrap; }
+  .sum-divider { width: 1px; background: rgba(255,255,255,0.18); }
+
+  /* ── Layout ── */
+  .cols { display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start; }
+
+  .section-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px 26px; }
+  .sc-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .sc-head h2 { font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 9px; }
+  .sc-head h2 .tick { width: 5px; height: 17px; background: var(--accent); border-radius: 2px; }
+  .sc-head .total { font-size: 12px; color: var(--muted); font-weight: 700; }
+
+  /* Category bars */
+  .cat-bars { display: flex; flex-direction: column; gap: 20px; }
+  .cat-item .cat-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+  .cat-name-wrap { display: flex; align-items: center; gap: 9px; }
+  .cat-chip { width: 11px; height: 11px; border-radius: 3px; }
+  .cat-name { font-size: 13.5px; font-weight: 700; }
+  .cat-frac { font-size: 12.5px; color: var(--muted); }
+  .cat-frac b { color: var(--ink); font-weight: 900; }
+  .cat-pct { font-size: 13px; font-weight: 900; color: #9a7d00; min-width: 42px; text-align: right; }
+  .cat-track { height: 12px; background: var(--field); border: 1px solid var(--line); border-radius: 99px; overflow: hidden; }
+  .cat-fill { height: 100%; border-radius: 99px; width: 0; transition: width 1s cubic-bezier(.2,.7,.2,1); }
+
+  /* Recent reads */
+  .recent { margin-top: 24px; }
+  .recent-list { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .rec-row { display: flex; align-items: center; gap: 14px; padding: 14px 20px; text-decoration: none; color: inherit; transition: background 0.14s; }
+  .rec-row + .rec-row { border-top: 1px solid var(--line); }
+  .rec-row:hover { background: var(--field); }
+  .rec-check { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
+  .rec-body { flex: 1; min-width: 0; }
+  .rec-body h3 { font-size: 13.5px; font-weight: 700; line-height: 1.45; }
+  .rec-tagrow { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+  .rec-cat { font-size: 10px; font-weight: 700; padding: 1px 8px; border-radius: 4px; }
+  .rec-date { font-size: 11px; color: var(--muted); }
+
+  /* Category colors (index-based) */
+  .cc-0 { background: rgba(248,212,35,0.22); color: #8a7000; }
+  .cc-1 { background: rgba(26,58,107,0.10);  color: var(--navy); }
+  .cc-2 { background: rgba(107,70,193,0.12); color: #5a37b0; }
+  .cc-3 { background: rgba(31,138,91,0.12);  color: var(--ok); }
+  .cc-4 { background: rgba(176,84,43,0.12);  color: #9c4a25; }
+  .cc-5 { background: rgba(220,53,69,0.10);  color: #b02a37; }
+  .cc-6 { background: rgba(13,202,240,0.12); color: #0a7280; }
+  .cc-7 { background: rgba(102,16,242,0.10); color: #5b0fa8; }
+
+  /* Next to read */
+  .next-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; position: sticky; top: 80px; }
+  .next-top { background: linear-gradient(135deg, #FFFBE8 0%, #FFFFFF 70%); padding: 18px 22px 16px; border-bottom: 1px solid var(--line); }
+  .next-eyebrow { font-size: 11.5px; font-weight: 900; color: #9a7d00; display: flex; align-items: center; gap: 7px; letter-spacing: 0.03em; }
+  .next-eyebrow .pin { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); color: var(--ink); display: grid; place-items: center; }
+  .next-thumb { min-height: 130px; background: var(--field); position: relative; display: grid; place-items: center; overflow: hidden; }
+  .next-thumb .ph-stripes { position: absolute; inset: 0; opacity: 0.5; }
+  .next-thumb .ph-label { position: relative; font-family: ui-monospace, monospace; font-size: 10px; color: var(--muted); background: rgba(255,255,255,0.85); padding: 4px 8px; border-radius: 5px; }
+  .next-body { padding: 18px 22px 22px; }
+  .next-cat { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 3px 9px; border-radius: 6px; margin-bottom: 11px; }
+  .next-body h3 { font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 9px; text-wrap: pretty; }
+  .next-body p { font-size: 12.5px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+  .next-meta { font-size: 11.5px; color: var(--muted); display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .next-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line); }
+  .btn-read { width: 100%; font-family: inherit; font-size: 14.5px; font-weight: 900; color: var(--ink); background: var(--accent); border: none; border-radius: 10px; padding: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 3px 10px rgba(248,212,35,0.4); transition: all 0.15s; text-decoration: none; }
+  .btn-read:hover { background: var(--accent-press); box-shadow: 0 5px 14px rgba(248,212,35,0.5); }
+  .btn-read:active { transform: translateY(1px); }
+
+  /* skeleton */
+  .skeleton { background: linear-gradient(90deg, var(--line) 25%, #f0f0f2 50%, var(--line) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--radius); }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .empty-msg { font-size: 13px; color: var(--muted); text-align: center; padding: 20px; }
+
+  .foot { margin-top: 34px; font-size: 11px; color: #A0A0A6; text-align: center; letter-spacing: 0.02em; }
+
+  @media (max-width: 880px) {
+    .summary { grid-template-columns: 1fr; gap: 22px; }
+    .sum-right { justify-content: flex-start; }
+    .cols { grid-template-columns: 1fr; }
+    .next-card { position: static; }
+  }
+  @media (max-width: 620px) {
+    .nav { padding: 0 16px; }
+    .nav-right .nav-link span.txt { display: none; }
+    .nav-link { padding: 8px; }
+    .wrap { padding: 22px 16px 52px; }
+    .page-head h1 { font-size: 22px; }
+    .summary { padding: 24px 20px; }
+    .sum-fig .big { font-size: 46px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useMemo } = React;
+
+/* ── GAS API エンドポイント ── */
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyk7ehj7Whvk6blfLjCMkFSi_XpAhpWXO473JTlQEoDhwd2gb574dCV9lxG6owkF_iTFw/exec';
+
+async function gasPost(body) {
+  const resp = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(body) });
+  return resp.json();
+}
+
+/* ── バーチャート色 (index mod 8) ── */
+const BAR_COLORS = ['#F8D423','#1A3A6B','#7c3aed','#1F8A5B','#c0392b','#e55039','#0891b2','#6d28d9'];
+
+/* ── 日付フォーマット ── */
+function fmtShortDate(str) {
+  if (!str) return '';
+  const d = new Date(str);
+  if (isNaN(d)) return str;
+  return `${d.getMonth()+1}月${d.getDate()}日`;
+}
+
+/* ── 連続学習日数 (streak) 計算 ── */
+function calcStreak(logs) {
+  const dateSet = new Set();
+  logs.forEach(l => {
+    const d = new Date(l.created_at || l.date || '');
+    if (!isNaN(d)) dateSet.add(d.toDateString());
+  });
+  let streak = 0;
+  const now = new Date();
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    if (dateSet.has(d.toDateString())) {
+      streak++;
+    } else if (i > 0) {
+      break; // i=0 は今日 (まだ読んでいなくても継続カウント)
+    }
+  }
+  return streak;
+}
+
+/* ── SVG Stripes ── */
+function Stripes({ seed }) {
+  const id = "ps" + seed;
+  return (
+    <svg className="ph-stripes" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
+      <defs><pattern id={id} width="14" height="14" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#FAFAFA"/><line x1="0" y1="0" x2="0" y2="14" stroke="#E4E4E7" strokeWidth="7"/></pattern></defs>
+      <rect width="100%" height="100%" fill={"url(#" + id + ")"}/>
+    </svg>
+  );
+}
+
+function App() {
+  const [user] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('jz_user') || '{}'); } catch { return {}; }
+  });
+
+  const [articles,   setArticles]   = useState([]);
+  const [logs,       setLogs]       = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading,    setLoading]    = useState(true);
+  const [anim,       setAnim]       = useState(false);
+
+  /* ── 認証チェック & データ取得 ── */
+  useEffect(() => {
+    const token = localStorage.getItem('jz_token');
+    if (!token) { window.location.href = 'login.html'; return; }
+
+    (async () => {
+      try {
+        const [aData, lData, cData] = await Promise.all([
+          gasPost({ action: 'getArticles',    token }),
+          gasPost({ action: 'getReadingLogs', token }),
+          gasPost({ action: 'getCategories',  token }),
+        ]);
+
+        if (aData.success === false && /認証|token|auth/i.test(aData.error || '')) {
+          localStorage.removeItem('jz_token');
+          localStorage.removeItem('jz_user');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        if (aData.success) setArticles(aData.articles   || []);
+        if (lData.success) setLogs(lData.logs           || []);
+        if (cData.success) setCategories(cData.categories || []);
+
+      } catch (e) {
+        console.error('fetch error', e);
+      } finally {
+        setLoading(false);
+        setTimeout(() => setAnim(true), 250);
+      }
+    })();
+  }, []);
+
+  /* ── ログアウト ── */
+  async function handleLogout() {
+    const token = localStorage.getItem('jz_token');
+    try { await gasPost({ action: 'logout', token }); } catch {}
+    localStorage.removeItem('jz_token');
+    localStorage.removeItem('jz_user');
+    window.location.href = 'login.html';
+  }
+
+  /* ── 派生データ ── */
+  const catById = useMemo(() => {
+    const m = {};
+    categories.forEach((c, i) => { m[String(c.id)] = { ...c, idx: i % 8 }; });
+    return m;
+  }, [categories]);
+
+  const artById = useMemo(() => {
+    const m = {};
+    articles.forEach(a => { m[String(a.id)] = a; });
+    return m;
+  }, [articles]);
+
+  const readSet = useMemo(() =>
+    new Set(logs.map(l => String(l.article_id))),
+  [logs]);
+
+  // カテゴリ別進捗
+  const catProgress = useMemo(() =>
+    categories.map((cat, i) => {
+      const catArts = articles.filter(a =>
+        String(a.category_id || a.category) === String(cat.id)
+      );
+      const done = catArts.filter(a => readSet.has(String(a.id))).length;
+      return { id: cat.id, name: cat.name, done, total: catArts.length, colorIdx: i % 8 };
+    }).filter(c => c.total > 0),
+  [categories, articles, readSet]);
+
+  const totalDone = readSet.size;
+  const totalAll  = articles.length;
+  const overall   = totalAll > 0 ? Math.round(totalDone / totalAll * 100) : 0;
+  const streak    = useMemo(() => calcStreak(logs), [logs]);
+
+  // 直近の読了記事 (最新5件)
+  const recent = useMemo(() => {
+    return [...logs]
+      .sort((a, b) => new Date(b.created_at || b.date || 0) - new Date(a.created_at || a.date || 0))
+      .slice(0, 5)
+      .map(log => {
+        const art = artById[String(log.article_id)];
+        const cat = art ? catById[String(art.category_id || art.category)] : null;
+        return {
+          articleId: log.article_id,
+          title:   art?.title || '（タイトル取得中）',
+          catName: cat?.name || '',
+          catIdx:  cat?.idx ?? 0,
+          date:    fmtShortDate(log.created_at || log.date),
+        };
+      });
+  }, [logs, artById, catById]);
+
+  // 次に読む記事 (未読の中で最も古い記事、または進捗の低いカテゴリの最初の未読)
+  const nextArticle = useMemo(() => {
+    // 進捗率が最も低いカテゴリを選ぶ
+    const lowestCat = catProgress.length > 0
+      ? catProgress.reduce((a, b) =>
+          (a.total > 0 ? a.done / a.total : 1) < (b.total > 0 ? b.done / b.total : 1) ? a : b
+        )
+      : null;
+
+    // そのカテゴリの未読記事を探す
+    const candidates = articles.filter(a => {
+      const isUnread = !readSet.has(String(a.id));
+      if (!isUnread) return false;
+      if (lowestCat && String(a.category_id || a.category) === String(lowestCat.id)) return true;
+      return false;
+    });
+
+    // カテゴリ縛りで見つからなければ全未読から
+    const fallback = articles.filter(a => !readSet.has(String(a.id)));
+    const pick = candidates[0] || fallback[0] || null;
+    if (!pick) return null;
+
+    const cat = catById[String(pick.category_id || pick.category)];
+    return {
+      id:       pick.id,
+      title:    pick.title,
+      excerpt:  pick.body ? pick.body.slice(0, 60) + '…' : (pick.excerpt || pick.description || ''),
+      catName:  cat?.name || '',
+      catIdx:   cat?.idx ?? 0,
+      readTime: pick.reading_time || pick.read_time || '',
+    };
+  }, [articles, catProgress, readSet, catById]);
+
+  const avatarChar = (user.name || 'U').charAt(0);
+
+  return (
+    <React.Fragment>
+      {/* ── ナビゲーション ── */}
+      <nav className="nav">
+        <div className="brand">
+          <div className="brand-mark"><span>ジ</span></div>
+          <div className="brand-name">ジブンゼミ</div>
+        </div>
+        <div className="nav-right">
+          <a className="nav-link" href="home.html">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span className="txt">ホーム</span>
+          </a>
+          <a className="nav-link" href="articles.html">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span className="txt">記事一覧</span>
+          </a>
+          <a className="nav-link active" href="progress.html">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span className="txt">進捗</span>
+          </a>
+          <a className="nav-link" href="mypage.html">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span className="txt">マイページ</span>
+          </a>
+          <button className="nav-link" style={{color:'rgba(255,255,255,0.7)'}} onClick={handleLogout}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span className="txt">ログアウト</span>
+          </button>
+          <div className="nav-avatar">{avatarChar}</div>
+        </div>
+      </nav>
+
+      <div className="wrap">
+        <div className="page-head">
+          <h1>学習進捗</h1>
+          <p>カテゴリ別に、あなたの読了状況を確認できます。</p>
+        </div>
+
+        {/* ── Overall summary ── */}
+        {loading ? (
+          <div className="skeleton" style={{height: 140, marginBottom: 28}}></div>
+        ) : (
+          <div className="summary">
+            <div className="sum-left">
+              <div className="s-label">全体の読了率</div>
+              <div className="sum-fig">
+                <div className="big">{overall}<span style={{fontSize:"28px"}}>%</span></div>
+                <div className="frac">全 {totalAll} 本中 <b>{totalDone}</b> 本 読了</div>
+              </div>
+              <div className="big-bar">
+                <div className="big-bar-fill" style={{ width: (anim ? overall : 0) + "%" }}></div>
+              </div>
+            </div>
+            <div className="sum-right">
+              <div className="sum-stat">
+                <div className="n gold">{totalDone}</div>
+                <div className="t">読了</div>
+              </div>
+              <div className="sum-divider"></div>
+              <div className="sum-stat">
+                <div className="n">{totalAll - totalDone}</div>
+                <div className="t">未読</div>
+              </div>
+              <div className="sum-divider"></div>
+              <div className="sum-stat">
+                <div className="n">{streak}</div>
+                <div className="t">連続日数</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="cols">
+          <div>
+            {/* ── カテゴリ別の進捗 ── */}
+            <div className="section-card">
+              <div className="sc-head">
+                <h2><span className="tick"></span>カテゴリ別の進捗</h2>
+                <span className="total">全 {catProgress.length} カテゴリ</span>
+              </div>
+              {loading ? (
+                <div className="skeleton" style={{height: 160}}></div>
+              ) : catProgress.length === 0 ? (
+                <div className="empty-msg">カテゴリ情報を取得中…</div>
+              ) : (
+                <div className="cat-bars">
+                  {catProgress.map(c => {
+                    const pct = c.total > 0 ? Math.round(c.done / c.total * 100) : 0;
+                    const color = BAR_COLORS[c.colorIdx];
+                    return (
+                      <div className="cat-item" key={c.id}>
+                        <div className="cat-top">
+                          <div className="cat-name-wrap">
+                            <span className="cat-chip" style={{ background: color }}></span>
+                            <span className="cat-name">{c.name}</span>
+                          </div>
+                          <div style={{display:"flex", alignItems:"center", gap:"12px"}}>
+                            <span className="cat-frac"><b>{c.done}</b> / {c.total} 本</span>
+                            <span className="cat-pct">{pct}%</span>
+                          </div>
+                        </div>
+                        <div className="cat-track">
+                          <div className="cat-fill"
+                            style={{ width: (anim ? pct : 0) + "%", background: color }}>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* ── 直近の読了記事 ── */}
+            <div className="recent">
+              <div className="sc-head" style={{marginBottom:"14px"}}>
+                <h2 style={{fontSize:"17px"}}><span className="tick" style={{height:"18px"}}></span>直近の読了記事</h2>
+              </div>
+              {loading ? (
+                <div className="skeleton" style={{height: 220}}></div>
+              ) : recent.length === 0 ? (
+                <div className="empty-msg" style={{background:"var(--white)", borderRadius:"var(--radius)", boxShadow:"var(--shadow)"}}>
+                  まだ記事を読んでいません。最初の一記事を読んでみましょう！
+                </div>
+              ) : (
+                <div className="recent-list">
+                  {recent.map((r, i) => (
+                    <a className="rec-row" key={i} href={`article_detail.html?id=${r.articleId}`}>
+                      <div className="rec-check">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <div className="rec-body">
+                        <h3>{r.title}</h3>
+                        <div className="rec-tagrow">
+                          {r.catName && <span className={"rec-cat cc-" + r.catIdx}>{r.catName}</span>}
+                          <span className="rec-date">{r.date} に読了</span>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── 次に読む記事 ── */}
+          <div className="next-card">
+            <div className="next-top">
+              <div className="next-eyebrow">
+                <span className="pin">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </span>
+                次に読む記事
+              </div>
+            </div>
+            <div className="next-thumb">
+              <Stripes seed={1} />
+              <span className="ph-label">記事サムネイル</span>
+            </div>
+            <div className="next-body">
+              {loading ? (
+                <div className="skeleton" style={{height: 160}}></div>
+              ) : !nextArticle ? (
+                <div>
+                  <p style={{color:"var(--ok)", fontWeight:"700", fontSize:"14px"}}>すべての記事を読了しました！</p>
+                </div>
+              ) : (
+                <React.Fragment>
+                  {nextArticle.catName && (
+                    <span className={"next-cat cc-" + nextArticle.catIdx}>{nextArticle.catName}</span>
+                  )}
+                  <h3>{nextArticle.title}</h3>
+                  {nextArticle.excerpt && <p>{nextArticle.excerpt}</p>}
+                  <div className="next-meta">
+                    <span>未読</span>
+                    {nextArticle.readTime && (
+                      <React.Fragment>
+                        <span className="dot"></span>
+                        <span>約{nextArticle.readTime}分で読める</span>
+                      </React.Fragment>
+                    )}
+                  </div>
+                  <a className="btn-read" href={`article_detail.html?id=${nextArticle.id}`}>
+                    この記事を読む
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+                  </a>
+                </React.Fragment>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="foot">© 2026 ジブンゼミ　月額500円のキャリア支援サブスク</div>
+      </div>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
