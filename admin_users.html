@@ -9,34 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #F4F4F5;
-    --accent: #F8D423;
-    --accent-press: #E8C40F;
-    --navy: #1A3A6B;
-    --ink: #1F1F1F;
-    --white: #FFFFFF;
-    --muted: #6B6B70;
-    --line: #E4E4E7;
-    --field: #FAFAFA;
-    --radius: 12px;
-    --shadow: 0 4px 16px rgba(0,0,0,0.12);
-    --ok: #1F8A5B;
-    --danger: #C0392B;
-    --gray: #8A8A90;
+    --bg: #F4F4F5; --accent: #F8D423; --accent-press: #E8C40F;
+    --navy: #1A3A6B; --ink: #1F1F1F; --white: #FFFFFF;
+    --muted: #6B6B70; --line: #E4E4E7; --field: #FAFAFA;
+    --radius: 12px; --shadow: 0 4px 16px rgba(0,0,0,0.12);
+    --ok: #1F8A5B; --danger: #C0392B; --gray: #8A8A90;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
-  body { font-family: "Noto Sans JP", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { font-family: "Noto Sans JP", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
   #root { min-height: 100%; }
-
   .shell { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
-
-  /* ── Sidebar ── */
   .sidebar { background: var(--navy); color: var(--white); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; }
   .sb-brand { display: flex; align-items: center; gap: 11px; padding: 20px 22px; border-bottom: 1px solid rgba(255,255,255,0.10); }
   .sb-brand .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
   .sb-brand .mark span { font-weight: 900; font-size: 17px; color: var(--navy); }
-  .sb-brand .t { line-height: 1.2; }
   .sb-brand .t .n { font-weight: 700; font-size: 15px; letter-spacing: 0.03em; }
   .sb-brand .t .s { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 700; letter-spacing: 0.08em; }
   .sb-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 3px; overflow-y: auto; }
@@ -49,21 +36,16 @@
   .sb-foot { padding: 14px; border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-direction: column; gap: 8px; }
   .sb-user { display: flex; align-items: center; gap: 11px; padding: 8px 6px; }
   .sb-user .av { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--navy); display: grid; place-items: center; font-weight: 900; font-size: 14px; flex-shrink: 0; }
-  .sb-user .u { line-height: 1.3; }
   .sb-user .u .un { font-size: 13px; font-weight: 700; }
   .sb-user .u .ur { font-size: 10.5px; color: rgba(255,255,255,0.55); }
   .sb-logout { display: flex; align-items: center; gap: 9px; font-family: inherit; font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.6); background: none; border: none; cursor: pointer; padding: 8px 10px; border-radius: 8px; width: 100%; transition: all 0.15s; }
   .sb-logout:hover { color: #ff8a7a; background: rgba(192,57,43,0.12); }
-
-  /* ── Main ── */
   .main { padding: 26px 32px 48px; }
   .topbar { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 22px; gap: 16px; }
   .topbar h1 { font-size: 23px; font-weight: 900; }
   .topbar .sub { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
   .btn-csv { font-family: inherit; font-size: 13px; font-weight: 700; color: var(--ink); background: var(--white); border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.15s; white-space: nowrap; }
   .btn-csv:hover { border-color: var(--navy); color: var(--navy); background: var(--field); }
-
-  /* ── Toolbar ── */
   .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
   .filters { display: flex; gap: 8px; }
   .filter-btn { font-family: inherit; font-size: 12.5px; font-weight: 700; color: var(--muted); background: var(--white); border: 1.5px solid var(--line); border-radius: 9px; padding: 9px 15px; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: all 0.15s; }
@@ -71,14 +53,11 @@
   .filter-btn.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
   .filter-btn .fc { font-size: 11px; font-weight: 900; background: var(--field); color: var(--muted); padding: 1px 7px; border-radius: 99px; min-width: 20px; text-align: center; }
   .filter-btn.active .fc { background: rgba(255,255,255,0.22); color: var(--white); }
-
   .search-wrap { position: relative; width: 280px; }
   .search-wrap .s-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); }
   .search-input { width: 100%; font-family: inherit; font-size: 13.5px; color: var(--ink); background: var(--white); border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 14px 11px 40px; transition: border-color 0.15s, box-shadow 0.15s; }
   .search-input::placeholder { color: #B6B6BC; }
   .search-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(248,212,35,0.22); }
-
-  /* ── Table ── */
   .panel { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
   table { width: 100%; border-collapse: collapse; }
   thead th { font-size: 11px; font-weight: 700; color: var(--muted); text-align: left; padding: 13px 20px; background: var(--field); letter-spacing: 0.03em; white-space: nowrap; border-bottom: 1px solid var(--line); }
@@ -108,19 +87,15 @@
   .ab.approve    { background: var(--accent); border-color: var(--accent); color: var(--ink); }
   .ab.approve:hover:not(:disabled) { background: var(--accent-press); }
   .ab.suspend    { color: var(--muted); }
-  .ab.suspend:hover:not(:disabled)    { border-color: var(--gray); color: var(--ink); background: var(--field); }
+  .ab.suspend:hover:not(:disabled) { border-color: var(--gray); color: var(--ink); background: var(--field); }
   .ab.reactivate { color: var(--ok); }
   .ab.reactivate:hover:not(:disabled) { border-color: var(--ok); background: rgba(31,138,91,0.06); }
   .ab.detail     { color: var(--navy); }
-  .ab.detail:hover:not(:disabled)     { border-color: var(--navy); background: var(--field); }
+  .ab.detail:hover:not(:disabled) { border-color: var(--navy); background: var(--field); }
   .empty-row td { text-align: center; color: var(--muted); padding: 40px; font-size: 13px; }
-
-  /* skeleton */
   @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
   .skel { background: linear-gradient(90deg, #eee 25%, #f8f8f8 50%, #eee 75%); background-size: 200% 100%; animation: shimmer 1.3s infinite; border-radius: 6px; }
   .skel-row td { padding: 16px 20px; }
-
-  /* ── Pagination ── */
   .pager { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--line); }
   .pager .info { font-size: 12px; color: var(--muted); }
   .pager .info b { color: var(--ink); font-weight: 700; }
@@ -129,12 +104,8 @@
   .pg:hover:not(:disabled) { border-color: var(--navy); }
   .pg.active { background: var(--accent); border-color: var(--accent); }
   .pg:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  /* spinner */
   .spinner { width: 14px; height: 14px; border: 2px solid rgba(26,58,107,0.15); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* toast */
   .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); background: var(--navy); color: var(--white); font-size: 13px; font-weight: 500; padding: 13px 22px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.22); opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; z-index: 50; display: flex; align-items: center; gap: 9px; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast .tk { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
@@ -142,15 +113,12 @@
 </head>
 <body>
 <div id="root"></div>
-
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
 <script type="text/babel">
 const { useState, useEffect, useMemo } = React;
 
-/* ── GAS API エンドポイント ── */
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyk7ehj7Whvk6blfLjCMkFSi_XpAhpWXO473JTlQEoDhwd2gb574dCV9lxG6owkF_iTFw/exec';
 
 async function gasPost(body) {
@@ -158,8 +126,6 @@ async function gasPost(body) {
   return resp.json();
 }
 
-/* ── ユーティリティ ── */
-function isPhone(s) { return /^\d{9,11}$/.test(String(s || '').replace(/\D/g,'')); }
 function fmtPhone(s) {
   const d = String(s || '').replace(/\D/g,'');
   if (d.length === 11) return d.slice(0,3)+'-'+d.slice(3,7)+'-'+d.slice(7);
@@ -173,26 +139,25 @@ function fmtShortDate(str) {
   return `${d.getMonth()+1}/${d.getDate()}`;
 }
 function getInitial(name) { return String(name || 'U').replace(/\s+/,'').charAt(0); }
-function padId(id) { return 'JZ-' + String(id).padStart(4, '0'); }
 
-/* ── ユーザー正規化 ── */
+/* ── ユーザー正規化（GASの実際のフィールド名に合わせる） ── */
 function normalizeUser(u) {
-  const phone = isPhone(u.identifier);
-  const method = u.method || (phone ? 'phone' : 'note');
-  const contact = method === 'phone' ? fmtPhone(u.identifier) : (u.identifier || '');
+  const method = u.phone ? 'phone' : 'note';
+  const contact = method === 'phone' ? fmtPhone(u.phone) : ('@' + (u.note_id || ''));
   return {
-    id:       u.id,
-    name:     u.name || '名前なし',
-    initial:  getInitial(u.name),
+    id:      u.id,
+    name:    u.name || '名前なし',
+    initial: getInitial(u.name),
     method,
     contact,
-    date:     fmtShortDate(u.created_at || u.date),
-    status:   u.status || 'pending',
-    memo:     u.memo || u.note || '',
+    date:    fmtShortDate(u.created_at),
+    status:  u.status || 'pending',
+    memo:    u.memo || '',
+    phone:   u.phone || '',
+    note_id: u.note_id || '',
   };
 }
 
-/* ── Icon ── */
 function Icon({ children, size = 18 }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{children}</svg>;
 }
@@ -222,25 +187,24 @@ const FILTERS = [
 const PER_PAGE = 8;
 
 function App() {
-  /* ── 管理者認証ガード ── */
   const adminToken = localStorage.getItem('jz_admin_token');
-  const adminUser  = (() => { try { return JSON.parse(localStorage.getItem('jz_admin_user') || '{}'); } catch { return {}; } })();
   if (!adminToken) { window.location.href = 'admin_login.html'; return null; }
+  const adminUser = (() => { try { return JSON.parse(localStorage.getItem('jz_admin_user') || '{}'); } catch { return {}; } })();
 
   const [users,   setUsers]   = useState([]);
   const [loading, setLoading] = useState(true);
-  const [busy,    setBusy]    = useState({});   // userId → true
+  const [busy,    setBusy]    = useState({});
   const [filter,  setFilter]  = useState("all");
   const [q,       setQ]       = useState("");
   const [page,    setPage]    = useState(1);
   const [toast,   setToast]   = useState("");
 
-  /* ── 初期ロード ── */
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
-        const res = await gasPost({ action: 'getAdminUsers', adminToken });
+        /* ── 正しいアクション名・パラメータ名 ── */
+        const res = await gasPost({ action: 'adminGetUsers', token: adminToken });
         if (res.success === false && /認証|token|auth/i.test(res.error || '')) {
           localStorage.removeItem('jz_admin_token');
           localStorage.removeItem('jz_admin_user');
@@ -251,7 +215,7 @@ function App() {
           setUsers((res.users || []).map(normalizeUser));
         }
       } catch (e) {
-        console.error('getAdminUsers error:', e);
+        console.error('adminGetUsers error:', e);
       } finally {
         setLoading(false);
       }
@@ -264,18 +228,18 @@ function App() {
     window._jzt = setTimeout(() => setToast(""), 2300);
   }
 
-  /* ── ステータス変更 ── */
-  async function changeStatus(user, action, newStatus, successMsg) {
+  /* ── ステータス変更（adminUpdateUser + status） ── */
+  async function changeStatus(user, newStatus, successMsg) {
     setBusy(b => ({ ...b, [user.id]: true }));
     try {
-      const res = await gasPost({ action, adminToken, userId: user.id });
+      const res = await gasPost({ action: 'adminUpdateUser', token: adminToken, id: user.id, status: newStatus });
       if (res.success === false && /認証|token|auth/i.test(res.error || '')) {
         localStorage.removeItem('jz_admin_token');
         localStorage.removeItem('jz_admin_user');
         window.location.href = 'admin_login.html';
         return;
       }
-      if (res.success || res.ok) {
+      if (res.success) {
         setUsers(us => us.map(u => u.id === user.id ? { ...u, status: newStatus } : u));
         flash(successMsg);
       } else {
@@ -288,49 +252,31 @@ function App() {
     }
   }
 
-  function handleApprove(u) {
-    changeStatus(u, 'approveUser',    'active',    u.name + ' さんを承認しました');
-  }
-  function handleSuspend(u) {
-    changeStatus(u, 'suspendUser',    'suspended', u.name + ' さんを停止しました');
-  }
-  function handleReactivate(u) {
-    changeStatus(u, 'reactivateUser', 'active',    u.name + ' さんを再開しました');
-  }
+  function handleApprove(u)    { changeStatus(u, 'active',    u.name + ' さんを承認しました'); }
+  function handleSuspend(u)    { changeStatus(u, 'suspended', u.name + ' さんを停止しました'); }
+  function handleReactivate(u) { changeStatus(u, 'active',    u.name + ' さんを再開しました'); }
 
-  /* ── ログアウト ── */
   async function handleLogout() {
-    try { await gasPost({ action: 'adminLogout', adminToken }); } catch {}
+    try { await gasPost({ action: 'logout', token: adminToken }); } catch {}
     localStorage.removeItem('jz_admin_token');
     localStorage.removeItem('jz_admin_user');
     window.location.href = 'admin_login.html';
   }
 
-  /* ── CSV エクスポート（クライアントサイド生成）── */
   function exportCsv() {
-    const rows = [['ID','氏名','登録方式','連絡先','申請日','ステータス','メモ']];
+    const rows = [['氏名','登録方式','連絡先','申請日','ステータス','メモ']];
     filtered.forEach(u => {
-      rows.push([
-        padId(u.id), u.name,
-        u.method === 'phone' ? '電話番号' : 'note',
-        u.contact, u.date,
-        STATUS_MAP[u.status]?.label || u.status,
-        u.memo,
-      ]);
+      rows.push([u.name, u.method === 'phone' ? '電話番号' : 'note', u.contact, u.date, STATUS_MAP[u.status]?.label || u.status, u.memo]);
     });
     const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-    const bom = '﻿';
-    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
     const url  = URL.createObjectURL(blob);
     const a    = document.createElement('a');
-    a.href     = url;
-    a.download = 'jibunzemi_users_' + new Date().toISOString().slice(0,10) + '.csv';
-    a.click();
-    URL.revokeObjectURL(url);
+    a.href = url; a.download = 'jibunzemi_users_' + new Date().toISOString().slice(0,10) + '.csv';
+    a.click(); URL.revokeObjectURL(url);
     flash('CSVを書き出しました（' + filtered.length + '件）');
   }
 
-  /* ── フィルタ ── */
   const counts = useMemo(() => {
     const c = { all: users.length, pending: 0, active: 0, suspended: 0 };
     for (const u of users) { if (c[u.status] !== undefined) c[u.status]++; }
@@ -341,7 +287,7 @@ function App() {
     const s = q.trim().toLowerCase();
     return users.filter(u =>
       (filter === "all" || u.status === filter) &&
-      (s === '' || u.name.includes(q.trim()) || u.contact.toLowerCase().includes(s))
+      (s === '' || u.name.toLowerCase().includes(s) || u.contact.toLowerCase().includes(s))
     );
   }, [users, filter, q]);
 
@@ -350,42 +296,32 @@ function App() {
   const pageRows   = filtered.slice((curPage - 1) * PER_PAGE, curPage * PER_PAGE);
 
   function changeFilter(f) { setFilter(f); setPage(1); }
-  function changeSearch(v) { setQ(v);       setPage(1); }
+  function changeSearch(v) { setQ(v);      setPage(1); }
 
   const adminName    = adminUser.name || 'Admin';
   const adminInitial = getInitial(adminName);
 
   return (
     <div className="shell">
-      {/* ── サイドバー ── */}
       <aside className="sidebar">
         <div className="sb-brand">
           <div className="mark"><span>ジ</span></div>
-          <div className="t">
-            <div className="n">ジブンゼミ</div>
-            <div className="s">ADMIN PANEL</div>
-          </div>
+          <div className="t"><div className="n">ジブンゼミ</div><div className="s">ADMIN PANEL</div></div>
         </div>
         <nav className="sb-nav">
           <div className="sb-label">メニュー</div>
           {NAV_ITEMS.map(n => (
-            <a key={n.key} href={n.href}
-               className={"sb-item" + (n.key === "users" ? " active" : "")}>
+            <a key={n.key} href={n.href} className={"sb-item" + (n.key === "users" ? " active" : "")}>
               <Icon>{n.icon}</Icon>
               {n.label}
-              {n.showBadge && counts.pending > 0 && (
-                <span className="badge">{counts.pending}</span>
-              )}
+              {n.showBadge && counts.pending > 0 && <span className="badge">{counts.pending}</span>}
             </a>
           ))}
         </nav>
         <div className="sb-foot">
           <div className="sb-user">
             <div className="av">{adminInitial}</div>
-            <div className="u">
-              <div className="un">{adminName}</div>
-              <div className="ur">管理者</div>
-            </div>
+            <div className="u"><div className="un">{adminName}</div><div className="ur">管理者</div></div>
           </div>
           <button className="sb-logout" onClick={handleLogout}>
             <Icon size={14}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></Icon>
@@ -394,7 +330,6 @@ function App() {
         </div>
       </aside>
 
-      {/* ── メイン ── */}
       <main className="main">
         <div className="topbar">
           <div>
@@ -407,64 +342,43 @@ function App() {
           </button>
         </div>
 
-        {/* ツールバー */}
         <div className="toolbar">
           <div className="filters">
             {FILTERS.map(f => (
-              <button key={f.key}
-                      className={"filter-btn" + (filter === f.key ? " active" : "")}
-                      onClick={() => changeFilter(f.key)}>
+              <button key={f.key} className={"filter-btn" + (filter === f.key ? " active" : "")} onClick={() => changeFilter(f.key)}>
                 {f.label}
                 <span className="fc">{loading ? '…' : counts[f.key]}</span>
               </button>
             ))}
           </div>
           <div className="search-wrap">
-            <span className="s-icon">
-              <Icon size={17}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></Icon>
-            </span>
-            <input
-              className="search-input"
-              type="text"
-              placeholder="氏名・連絡先で検索"
-              value={q}
-              onChange={e => changeSearch(e.target.value)}
-            />
+            <span className="s-icon"><Icon size={17}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></Icon></span>
+            <input className="search-input" type="text" placeholder="氏名・連絡先で検索" value={q} onChange={e => changeSearch(e.target.value)} />
           </div>
         </div>
 
-        {/* テーブル */}
         <div className="panel">
           <table>
             <thead>
               <tr>
-                <th>氏名</th>
-                <th>登録方式</th>
-                <th>note ID / 電話番号</th>
-                <th>申請日</th>
-                <th>ステータス</th>
-                <th>メモ</th>
-                <th style={{textAlign:'right'}}>操作</th>
+                <th>氏名</th><th>登録方式</th><th>連絡先</th><th>申請日</th><th>ステータス</th><th>メモ</th><th style={{textAlign:'right'}}>操作</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-                /* スケルトン */
-                Array.from({length: 5}).map((_, i) => (
+                Array.from({length:5}).map((_,i) => (
                   <tr key={i} className="skel-row">
-                    <td><div className="skel" style={{height:18, width:120}}></div></td>
-                    <td><div className="skel" style={{height:18, width:70}}></div></td>
-                    <td><div className="skel" style={{height:16, width:130}}></div></td>
-                    <td><div className="skel" style={{height:16, width:40}}></div></td>
-                    <td><div className="skel" style={{height:20, width:70, borderRadius:99}}></div></td>
-                    <td><div className="skel" style={{height:16, width:80}}></div></td>
-                    <td><div style={{display:'flex',gap:6,justifyContent:'flex-end'}}><div className="skel" style={{height:32, width:60}}></div><div className="skel" style={{height:32, width:50}}></div></div></td>
+                    <td><div className="skel" style={{height:18,width:120}}></div></td>
+                    <td><div className="skel" style={{height:18,width:70}}></div></td>
+                    <td><div className="skel" style={{height:16,width:130}}></div></td>
+                    <td><div className="skel" style={{height:16,width:40}}></div></td>
+                    <td><div className="skel" style={{height:20,width:70,borderRadius:99}}></div></td>
+                    <td><div className="skel" style={{height:16,width:80}}></div></td>
+                    <td><div style={{display:'flex',gap:6,justifyContent:'flex-end'}}><div className="skel" style={{height:32,width:60}}></div></div></td>
                   </tr>
                 ))
               ) : pageRows.length === 0 ? (
-                <tr className="empty-row">
-                  <td colSpan="7">該当するユーザーがいません</td>
-                </tr>
+                <tr className="empty-row"><td colSpan="7">該当するユーザーがいません</td></tr>
               ) : pageRows.map(u => {
                 const isBusy = !!busy[u.id];
                 const st = STATUS_MAP[u.status] || { label: u.status, cls: 'pending' };
@@ -473,10 +387,7 @@ function App() {
                     <td>
                       <div className="u-cell">
                         <div className="av">{u.initial}</div>
-                        <div>
-                          <div className="un">{u.name}</div>
-                          <div className="uid">{padId(u.id)}</div>
-                        </div>
+                        <div><div className="un">{u.name}</div></div>
                       </div>
                     </td>
                     <td>
@@ -494,37 +405,25 @@ function App() {
                         <span className="sd"></span>{st.label}
                       </span>
                     </td>
-                    <td>
-                      <span className={"memo" + (u.memo ? "" : " empty")}>{u.memo || "—"}</span>
-                    </td>
+                    <td><span className={"memo" + (u.memo ? "" : " empty")}>{u.memo || "—"}</span></td>
                     <td>
                       <div className="row-actions">
                         {u.status === 'pending' && (
                           <button className="ab approve" onClick={() => handleApprove(u)} disabled={isBusy}>
-                            {isBusy
-                              ? <span className="spinner"></span>
-                              : <React.Fragment><Icon size={12}><polyline points="20 6 9 17 4 12"/></Icon>承認</React.Fragment>
-                            }
+                            {isBusy ? <span className="spinner"></span> : <React.Fragment><Icon size={12}><polyline points="20 6 9 17 4 12"/></Icon>承認</React.Fragment>}
                           </button>
                         )}
                         {u.status === 'active' && (
                           <button className="ab suspend" onClick={() => handleSuspend(u)} disabled={isBusy}>
-                            {isBusy
-                              ? <span className="spinner"></span>
-                              : <React.Fragment><Icon size={12}><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></Icon>停止</React.Fragment>
-                            }
+                            {isBusy ? <span className="spinner"></span> : <React.Fragment><Icon size={12}><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></Icon>停止</React.Fragment>}
                           </button>
                         )}
                         {u.status === 'suspended' && (
                           <button className="ab reactivate" onClick={() => handleReactivate(u)} disabled={isBusy}>
-                            {isBusy
-                              ? <span className="spinner"></span>
-                              : <React.Fragment><Icon size={12}><polygon points="5 3 19 12 5 21 5 3"/></Icon>再開</React.Fragment>
-                            }
+                            {isBusy ? <span className="spinner"></span> : <React.Fragment><Icon size={12}><polygon points="5 3 19 12 5 21 5 3"/></Icon>再開</React.Fragment>}
                           </button>
                         )}
-                        <button className="ab detail"
-                          onClick={() => flash(u.name + ' さんの詳細: ' + padId(u.id) + ' / ' + u.contact)}>
+                        <button className="ab detail" onClick={() => flash(u.name + ' / ' + u.contact + ' / ' + st.label)}>
                           <Icon size={12}><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></Icon>
                           詳細
                         </button>
@@ -537,32 +436,20 @@ function App() {
           </table>
 
           <div className="pager">
-            <div className="info">
-              全 <b>{filtered.length}</b> 件中{' '}
-              <b>{filtered.length === 0 ? 0 : (curPage - 1) * PER_PAGE + 1}</b>–<b>{Math.min(curPage * PER_PAGE, filtered.length)}</b> 件を表示
-            </div>
+            <div className="info">全 <b>{filtered.length}</b> 件中 <b>{filtered.length === 0 ? 0 : (curPage-1)*PER_PAGE+1}</b>–<b>{Math.min(curPage*PER_PAGE, filtered.length)}</b> 件を表示</div>
             <div className="pages">
-              <button className="pg" disabled={curPage === 1} onClick={() => setPage(curPage - 1)}>
-                <Icon size={15}><polyline points="15 18 9 12 15 6"/></Icon>
-              </button>
-              {Array.from({length: totalPages}, (_, i) => i + 1).map(p => (
-                <button key={p} className={"pg" + (p === curPage ? " active" : "")} onClick={() => setPage(p)}>{p}</button>
+              <button className="pg" disabled={curPage===1} onClick={() => setPage(curPage-1)}><Icon size={15}><polyline points="15 18 9 12 15 6"/></Icon></button>
+              {Array.from({length:totalPages},(_,i)=>i+1).map(p => (
+                <button key={p} className={"pg"+(p===curPage?" active":"")} onClick={() => setPage(p)}>{p}</button>
               ))}
-              <button className="pg" disabled={curPage === totalPages} onClick={() => setPage(curPage + 1)}>
-                <Icon size={15}><polyline points="9 18 15 12 9 6"/></Icon>
-              </button>
+              <button className="pg" disabled={curPage===totalPages} onClick={() => setPage(curPage+1)}><Icon size={15}><polyline points="9 18 15 12 9 6"/></Icon></button>
             </div>
           </div>
         </div>
       </main>
 
-      {/* トースト */}
-      <div className={"toast" + (toast ? " show" : "")}>
-        <span className="tk">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1A3A6B" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-        </span>
+      <div className={"toast"+(toast?" show":"")}>
+        <span className="tk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1A3A6B" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
         {toast}
       </div>
     </div>
