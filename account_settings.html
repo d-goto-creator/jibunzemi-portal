@@ -9,27 +9,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #F4F4F5;
-    --accent: #F8D423;
-    --accent-press: #E8C40F;
-    --navy: #1A3A6B;
-    --ink: #1F1F1F;
-    --white: #FFFFFF;
-    --muted: #6B6B70;
-    --line: #E4E4E7;
-    --field: #FAFAFA;
-    --radius: 12px;
-    --shadow: 0 4px 16px rgba(0,0,0,0.12);
-    --ok: #1F8A5B;
-    --danger: #C0392B;
+    --bg: #F4F4F5; --accent: #F8D423; --accent-press: #E8C40F;
+    --navy: #1A3A6B; --ink: #1F1F1F; --white: #FFFFFF;
+    --muted: #6B6B70; --line: #E4E4E7; --field: #FAFAFA;
+    --radius: 12px; --shadow: 0 4px 16px rgba(0,0,0,0.12);
+    --ok: #1F8A5B; --danger: #C0392B;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
-  body { font-family: "Noto Sans JP", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { font-family: "Noto Sans JP", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
   #root { min-height: 100%; }
   a { color: inherit; }
-
-  /* ── Nav ── */
   .nav { height: 60px; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 30; }
   .nav .brand { display: flex; align-items: center; gap: 10px; }
   .brand-mark { width: 28px; height: 28px; border-radius: 7px; background: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
@@ -39,7 +29,6 @@
   .nav-link { color: rgba(255,255,255,0.82); font-size: 13px; font-weight: 700; text-decoration: none; padding: 8px 13px; border-radius: 8px; display: flex; align-items: center; gap: 7px; transition: color 0.15s, background 0.15s; cursor: pointer; background: none; border: none; font-family: inherit; }
   .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.10); }
   .nav-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--navy); display: grid; place-items: center; font-weight: 900; font-size: 13px; margin-left: 4px; }
-
   .wrap { max-width: 720px; margin: 0 auto; padding: 28px 24px 64px; }
   .crumb { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); margin-bottom: 16px; }
   .crumb a { text-decoration: none; font-weight: 500; }
@@ -49,8 +38,6 @@
   .page-head { margin-bottom: 24px; }
   .page-head h1 { font-size: 26px; font-weight: 900; letter-spacing: 0.02em; }
   .page-head p { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
-
-  /* ── Section card ── */
   .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 22px; overflow: hidden; }
   .card-head { padding: 20px 26px 0; }
   .card-head h2 { font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 10px; }
@@ -60,15 +47,10 @@
   .card-foot { padding: 16px 26px; background: var(--field); border-top: 1px solid var(--line); display: flex; justify-content: flex-end; align-items: center; gap: 14px; }
   .saved-flash { font-size: 12.5px; color: var(--ok); font-weight: 700; display: flex; align-items: center; gap: 6px; opacity: 0; transition: opacity 0.2s; }
   .saved-flash.show { opacity: 1; }
-
   .field { margin-bottom: 18px; }
   .field label { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; margin-bottom: 8px; }
   .lock-badge { font-size: 10px; font-weight: 700; color: var(--muted); background: var(--field); border: 1px solid var(--line); padding: 1px 7px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; }
-  input[type=text], input[type=tel], input[type=password] {
-    width: 100%; font-family: inherit; font-size: 14px; color: var(--ink); background: var(--white);
-    border: 1.5px solid var(--line); border-radius: 9px; padding: 12px 14px;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
+  input[type=text], input[type=tel], input[type=password] { width: 100%; font-family: inherit; font-size: 14px; color: var(--ink); background: var(--white); border: 1.5px solid var(--line); border-radius: 9px; padding: 12px 14px; transition: border-color 0.15s, box-shadow 0.15s; }
   input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(248,212,35,0.22); }
   input:disabled { background: var(--field); color: var(--muted); cursor: not-allowed; border-style: dashed; }
   input.invalid { border-color: var(--danger); background: #FDF3F2; }
@@ -80,8 +62,6 @@
   .hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
   .error-msg { font-size: 11.5px; color: var(--danger); margin-top: 6px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
   .success-msg { font-size: 11.5px; color: var(--ok); margin-top: 6px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
-
-  /* pw strength */
   .strength { display: flex; gap: 5px; margin-top: 9px; }
   .strength .seg { flex: 1; height: 5px; border-radius: 99px; background: var(--line); transition: background 0.2s; }
   .strength.s1 .seg:nth-child(1) { background: var(--danger); }
@@ -89,15 +69,11 @@
   .strength.s3 .seg:nth-child(-n+3) { background: #C9A100; }
   .strength.s4 .seg { background: var(--ok); }
   .strength-label { font-size: 11px; font-weight: 700; margin-top: 6px; }
-
   .btn-save { font-family: inherit; font-size: 13.5px; font-weight: 900; color: var(--ink); background: var(--accent); border: none; border-radius: 9px; padding: 11px 22px; cursor: pointer; box-shadow: 0 3px 10px rgba(248,212,35,0.35); transition: all 0.15s; display: flex; align-items: center; gap: 7px; }
-  .btn-save:hover { background: var(--accent-press); box-shadow: 0 5px 14px rgba(248,212,35,0.45); }
-  .btn-save:active { transform: translateY(1px); }
+  .btn-save:hover { background: var(--accent-press); }
   .btn-save:disabled { background: #ECECEE; color: #B6B6BC; cursor: not-allowed; box-shadow: none; }
   .spinner { width: 14px; height: 14px; border: 2.5px solid rgba(31,31,31,0.2); border-top-color: var(--muted); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Subscription info */
   .info-rows { display: flex; flex-direction: column; gap: 1px; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; }
   .info-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--white); font-size: 13px; }
   .info-row + .info-row { border-top: 1px solid var(--line); }
@@ -109,41 +85,30 @@
   .cancel-note { display: flex; gap: 11px; background: var(--field); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-top: 16px; font-size: 12.5px; line-height: 1.65; }
   .cancel-note .ni { color: var(--navy); flex-shrink: 0; margin-top: 1px; }
   .cancel-note a { color: var(--navy); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
-  .cancel-note a:hover { text-decoration: underline; }
-
-  /* Logout */
   .logout-area { text-align: center; margin-top: 32px; }
   .logout-link { font-family: inherit; font-size: 13px; font-weight: 700; color: var(--muted); background: none; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 8px; transition: all 0.15s; }
   .logout-link:hover { color: var(--danger); background: rgba(192,57,43,0.06); }
-
-  .foot { margin-top: 24px; font-size: 11px; color: #A0A0A6; text-align: center; letter-spacing: 0.02em; }
-
+  .foot { margin-top: 24px; font-size: 11px; color: #A0A0A6; text-align: center; }
   .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); background: var(--navy); color: var(--white); font-size: 13px; font-weight: 500; padding: 13px 22px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.22); opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; z-index: 50; display: flex; align-items: center; gap: 9px; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast .tk { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
-
   @media (max-width: 620px) {
     .nav { padding: 0 16px; }
     .nav-right .nav-link span.txt { display: none; }
     .nav-link { padding: 8px; }
     .wrap { padding: 22px 16px 52px; }
-    .page-head h1 { font-size: 22px; }
     .card-head, .card-body, .card-foot { padding-left: 20px; padding-right: 20px; }
-    .card-head p { margin-left: 40px; }
   }
 </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
 <script type="text/babel">
 const { useState, useEffect } = React;
 
-/* ── GAS API エンドポイント ── */
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyk7ehj7Whvk6blfLjCMkFSi_XpAhpWXO473JTlQEoDhwd2gb574dCV9lxG6owkF_iTFw/exec';
 
 async function gasPost(body) {
@@ -151,7 +116,6 @@ async function gasPost(body) {
   return resp.json();
 }
 
-/* ── 日付フォーマット ── */
 function fmtDate(str) {
   if (!str) return '---';
   const d = new Date(str);
@@ -159,15 +123,13 @@ function fmtDate(str) {
   return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
 }
 
-/* ── 電話番号フォーマット ── */
 function fmtPhone(s) {
   const d = String(s || '').replace(/\D/g, '');
-  if (d.length === 11) return d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7);
-  if (d.length === 10) return d.slice(0,3) + '-' + d.slice(3,6) + '-' + d.slice(6);
+  if (d.length === 11) return d.slice(0,3)+'-'+d.slice(3,7)+'-'+d.slice(7);
+  if (d.length === 10) return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);
   return s;
 }
 
-/* ── パスワード強度 ── */
 function calcStrength(p) {
   if (!p) return 0;
   let s = 0;
@@ -180,13 +142,8 @@ function calcStrength(p) {
 const S_LABELS = ['', '弱い', 'ふつう', '強い', 'とても強い'];
 const S_COLORS = ['', 'var(--danger)', '#E08B2E', '#C9A100', 'var(--ok)'];
 
-/* ── Icon helpers ── */
 function LockIcon({ size = 13 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-    </svg>
-  );
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>;
 }
 function EyeIcon({ off }) {
   return off ? (
@@ -202,33 +159,40 @@ function EyeIcon({ off }) {
 }
 
 function App() {
-  /* ── 認証ガード ── */
-  const [storedUser, setStoredUser] = useState(() => {
-    const token = localStorage.getItem('jz_token');
-    if (!token) { window.location.href = 'login.html'; return {}; }
-    try { return JSON.parse(localStorage.getItem('jz_user') || '{}'); } catch { return {}; }
-  });
+  const token = localStorage.getItem('jz_token');
+  if (!token) { window.location.href = 'login.html'; return null; }
+  const storedUser = (() => { try { return JSON.parse(localStorage.getItem('jz_user') || '{}'); } catch { return {}; } })();
 
-  /* ── プロフィール ── */
-  const [name,       setName]       = useState('');
+  /* ── プロフィール（APIから取得） ── */
+  const [profile,    setProfile]    = useState(null);
+  const [name,       setName]       = useState(storedUser.name || '');
   const [profLoading, setProfLoading] = useState(false);
   const [profSaved,  setProfSaved]  = useState(false);
   const [profErr,    setProfErr]    = useState('');
 
   /* ── パスワード ── */
-  const [pw,         setPw]         = useState({ cur: '', next: '', conf: '' });
-  const [pwErr,      setPwErr]      = useState({});
-  const [pwApiErr,   setPwApiErr]   = useState('');
-  const [pwTouched,  setPwTouched]  = useState(false);
-  const [pwLoading,  setPwLoading]  = useState(false);
-  const [show,       setShow]       = useState({ cur: false, next: false, conf: false });
+  const [pw,        setPw]        = useState({ cur: '', next: '', conf: '' });
+  const [pwErr,     setPwErr]     = useState({});
+  const [pwApiErr,  setPwApiErr]  = useState('');
+  const [pwTouched, setPwTouched] = useState(false);
+  const [pwLoading, setPwLoading] = useState(false);
+  const [show,      setShow]      = useState({ cur: false, next: false, conf: false });
 
-  /* ── トースト ── */
   const [toast, setToast] = useState('');
 
-  /* ── 初期化 ── */
+  /* ── 初期ロード：getUserProfileでphone/note_idを取得 ── */
   useEffect(() => {
-    setName(storedUser.name || '');
+    (async () => {
+      try {
+        const res = await gasPost({ action: 'getUserProfile', token });
+        if (res.success) {
+          setProfile(res.user);
+          setName(res.user.name || '');
+        }
+      } catch (e) {
+        console.error('getUserProfile error:', e);
+      }
+    })();
   }, []);
 
   function flash(msg) {
@@ -242,23 +206,16 @@ function App() {
     if (!name.trim()) { setProfErr('氏名を入力してください'); return; }
     setProfErr('');
     setProfLoading(true);
-    const token = localStorage.getItem('jz_token');
     try {
       const res = await gasPost({ action: 'updateProfile', token, name: name.trim() });
-      if (res.success === false && /認証|token|auth/i.test(res.error || '')) {
-        localStorage.removeItem('jz_token'); localStorage.removeItem('jz_user');
-        window.location.href = 'login.html'; return;
-      }
       if (res.success) {
-        // localStorageのjz_userも更新
         const updated = { ...storedUser, name: name.trim() };
         localStorage.setItem('jz_user', JSON.stringify(updated));
-        setStoredUser(updated);
         setProfSaved(true);
         setTimeout(() => setProfSaved(false), 2400);
         flash('プロフィールを保存しました');
       } else {
-        setProfErr(res.error || '保存に失敗しました。再試行してください。');
+        setProfErr(res.error || '保存に失敗しました。');
       }
     } catch {
       setProfErr('通信エラーが発生しました。');
@@ -284,7 +241,7 @@ function App() {
     if (pwTouched) setPwErr(validatePw(nv));
   }
 
-  /* ── パスワード変更 ── */
+  /* ── パスワード変更（正しいアクション名・パラメータ名） ── */
   async function savePw() {
     setPwTouched(true);
     const e = validatePw(pw);
@@ -293,24 +250,24 @@ function App() {
 
     setPwLoading(true);
     setPwApiErr('');
-    const token = localStorage.getItem('jz_token');
     try {
       const res = await gasPost({
-        action: 'changePassword',
+        action: 'updatePassword',          // 修正：changePassword → updatePassword
         token,
-        currentPassword: pw.cur,
-        newPassword: pw.next,
+        current_password: pw.cur,          // 修正：currentPassword → current_password
+        new_password: pw.next,             // 修正：newPassword → new_password
       });
       if (res.success === false && /認証|token|auth/i.test(res.error || '')) {
-        localStorage.removeItem('jz_token'); localStorage.removeItem('jz_user');
-        window.location.href = 'login.html'; return;
+        localStorage.removeItem('jz_token');
+        localStorage.removeItem('jz_user');
+        window.location.href = 'login.html';
+        return;
       }
       if (res.success) {
         setPw({ cur: '', next: '', conf: '' });
         setPwTouched(false); setPwErr({}); setPwApiErr('');
         flash('パスワードを変更しました');
       } else {
-        // 現在のパスワードが違う場合など
         setPwApiErr(res.error || 'パスワードの変更に失敗しました。現在のパスワードを確認してください。');
       }
     } catch {
@@ -320,26 +277,25 @@ function App() {
     }
   }
 
-  /* ── ログアウト ── */
   async function handleLogout() {
-    const token = localStorage.getItem('jz_token');
     try { await gasPost({ action: 'logout', token }); } catch {}
     localStorage.removeItem('jz_token');
     localStorage.removeItem('jz_user');
     window.location.href = 'login.html';
   }
 
-  const identifier = storedUser.identifier || '';
-  const isPhone    = /^\d{9,11}$/.test(identifier);
-  const displayId  = isPhone ? fmtPhone(identifier) : identifier;
+  /* ── 登録方式の判定（APIから取得したprofileを使用） ── */
+  const phone      = profile ? (profile.phone || '') : '';
+  const noteId     = profile ? (profile.note_id || '') : '';
+  const isPhone    = !!phone;
+  const displayId  = isPhone ? fmtPhone(phone) : noteId;
   const methodLabel = isPhone ? '電話番号' : 'note ID';
-  const registeredAt = fmtDate(storedUser.created_at || storedUser.registered_at);
-  const avatarChar   = (storedUser.name || name || 'U').charAt(0);
+  const registeredAt = fmtDate(profile ? profile.created_at : null);
+  const avatarChar   = (name || storedUser.name || 'U').charAt(0);
   const st = calcStrength(pw.next);
 
   return (
     <React.Fragment>
-      {/* ── ナビゲーション ── */}
       <nav className="nav">
         <div className="brand">
           <div className="brand-mark"><span>ジ</span></div>
@@ -373,13 +329,11 @@ function App() {
           <p>プロフィール・パスワード・サブスク情報を管理できます。</p>
         </div>
 
-        {/* ── プロフィール ── */}
+        {/* プロフィール */}
         <div className="card">
           <div className="card-head">
             <h2>
-              <span className="ic">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </span>
+              <span className="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
               プロフィール
             </h2>
             <p>表示される氏名を変更できます。</p>
@@ -387,32 +341,19 @@ function App() {
           <div className="card-body">
             <div className="field">
               <label>氏名</label>
-              <input
-                type="text"
-                value={name}
-                onChange={e => { setName(e.target.value); setProfErr(''); }}
-                placeholder="山田 太郎"
-                className={profErr ? 'invalid' : ''}
-              />
-              {profErr && (
-                <div className="error-msg">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  {profErr}
-                </div>
-              )}
+              <input type="text" value={name} onChange={e => { setName(e.target.value); setProfErr(''); }} placeholder="山田 太郎" className={profErr ? 'invalid' : ''} />
+              {profErr && <div className="error-msg"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>{profErr}</div>}
             </div>
             <div className="field">
               <label>
-                {isPhone ? '電話番号' : 'note ID'}
-                <span className="lock-badge">
-                  <LockIcon size={10} />変更不可
-                </span>
+                {methodLabel}
+                <span className="lock-badge"><LockIcon size={10} />変更不可</span>
               </label>
               <div className="input-wrap locked-wrap">
-                <input type="text" disabled value={isPhone ? `電話番号（${displayId}）` : `note ID（${displayId}）`} />
+                <input type="text" disabled value={profile ? `${methodLabel}（${displayId}）` : '読み込み中...'} />
                 <span className="lock-ic"><LockIcon size={15} /></span>
               </div>
-              <div className="hint">登録方式は変更できません。変更が必要な場合はサポートへお問い合わせください。</div>
+              <div className="hint">登録方式は変更できません。</div>
             </div>
           </div>
           <div className="card-foot">
@@ -421,15 +362,12 @@ function App() {
               保存しました
             </span>
             <button className="btn-save" onClick={saveProfile} disabled={profLoading}>
-              {profLoading
-                ? <React.Fragment><span className="spinner"></span>保存中…</React.Fragment>
-                : '保存する'
-              }
+              {profLoading ? <React.Fragment><span className="spinner"></span>保存中…</React.Fragment> : '保存する'}
             </button>
           </div>
         </div>
 
-        {/* ── パスワード変更 ── */}
+        {/* パスワード変更 */}
         <div className="card">
           <div className="card-head">
             <h2><span className="ic"><LockIcon size={16} /></span>パスワード変更</h2>
@@ -437,7 +375,7 @@ function App() {
           </div>
           <div className="card-body">
             {pwApiErr && (
-              <div className="error-msg" style={{marginBottom:'14px', fontSize:'13px'}}>
+              <div className="error-msg" style={{marginBottom:'14px',fontSize:'13px'}}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 {pwApiErr}
               </div>
@@ -445,180 +383,92 @@ function App() {
             <div className="field">
               <label>現在のパスワード</label>
               <div className="input-wrap with-toggle">
-                <input
-                  type={show.cur ? 'text' : 'password'}
-                  placeholder="現在のパスワード"
-                  value={pw.cur}
-                  onChange={e => updatePw('cur', e.target.value)}
-                  className={pwErr.cur ? 'invalid' : ''}
-                />
-                <button type="button" className="toggle-pw" onClick={() => setShow(s => ({ ...s, cur: !s.cur }))}>
-                  <EyeIcon off={show.cur} />
-                </button>
+                <input type={show.cur ? 'text' : 'password'} placeholder="現在のパスワード" value={pw.cur} onChange={e => updatePw('cur', e.target.value)} className={pwErr.cur ? 'invalid' : ''} />
+                <button type="button" className="toggle-pw" onClick={() => setShow(s => ({ ...s, cur: !s.cur }))}><EyeIcon off={show.cur} /></button>
               </div>
-              {pwErr.cur && (
-                <div className="error-msg">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  {pwErr.cur}
-                </div>
-              )}
+              {pwErr.cur && <div className="error-msg"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>{pwErr.cur}</div>}
             </div>
-
             <div className="field">
               <label>新しいパスワード</label>
               <div className="input-wrap with-toggle">
-                <input
-                  type={show.next ? 'text' : 'password'}
-                  placeholder="8文字以上で設定"
-                  value={pw.next}
-                  onChange={e => updatePw('next', e.target.value)}
-                  className={pwErr.next ? 'invalid' : ''}
-                />
-                <button type="button" className="toggle-pw" onClick={() => setShow(s => ({ ...s, next: !s.next }))}>
-                  <EyeIcon off={show.next} />
-                </button>
+                <input type={show.next ? 'text' : 'password'} placeholder="8文字以上で設定" value={pw.next} onChange={e => updatePw('next', e.target.value)} className={pwErr.next ? 'invalid' : ''} />
+                <button type="button" className="toggle-pw" onClick={() => setShow(s => ({ ...s, next: !s.next }))}><EyeIcon off={show.next} /></button>
               </div>
               {pw.next && (
                 <React.Fragment>
-                  <div className={"strength s" + st}>
-                    <span className="seg"></span><span className="seg"></span>
-                    <span className="seg"></span><span className="seg"></span>
-                  </div>
-                  <div className="strength-label" style={{ color: S_COLORS[st] }}>
-                    強度：{S_LABELS[st]}
-                  </div>
+                  <div className={"strength s" + st}><span className="seg"></span><span className="seg"></span><span className="seg"></span><span className="seg"></span></div>
+                  <div className="strength-label" style={{color:S_COLORS[st]}}>強度：{S_LABELS[st]}</div>
                 </React.Fragment>
               )}
-              {pwErr.next && (
-                <div className="error-msg">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  {pwErr.next}
-                </div>
-              )}
+              {pwErr.next && <div className="error-msg"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>{pwErr.next}</div>}
             </div>
-
             <div className="field">
               <label>新しいパスワード（確認）</label>
               <div className="input-wrap with-toggle">
-                <input
-                  type={show.conf ? 'text' : 'password'}
-                  placeholder="もう一度入力"
-                  value={pw.conf}
-                  onChange={e => updatePw('conf', e.target.value)}
-                  className={pwErr.conf ? 'invalid' : ''}
-                />
-                <button type="button" className="toggle-pw" onClick={() => setShow(s => ({ ...s, conf: !s.conf }))}>
-                  <EyeIcon off={show.conf} />
-                </button>
+                <input type={show.conf ? 'text' : 'password'} placeholder="もう一度入力" value={pw.conf} onChange={e => updatePw('conf', e.target.value)} className={pwErr.conf ? 'invalid' : ''} />
+                <button type="button" className="toggle-pw" onClick={() => setShow(s => ({ ...s, conf: !s.conf }))}><EyeIcon off={show.conf} /></button>
               </div>
-              {pwErr.conf ? (
-                <div className="error-msg">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  {pwErr.conf}
-                </div>
-              ) : (pw.conf && pw.conf === pw.next && (
-                <div className="success-msg">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  パスワードが一致しています
-                </div>
-              ))}
+              {pwErr.conf
+                ? <div className="error-msg"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>{pwErr.conf}</div>
+                : (pw.conf && pw.conf === pw.next && <div className="success-msg"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>パスワードが一致しています</div>)
+              }
             </div>
           </div>
           <div className="card-foot">
             <button className="btn-save" onClick={savePw} disabled={pwLoading}>
-              {pwLoading
-                ? <React.Fragment><span className="spinner"></span>変更中…</React.Fragment>
-                : 'パスワードを変更'
-              }
+              {pwLoading ? <React.Fragment><span className="spinner"></span>変更中…</React.Fragment> : 'パスワードを変更'}
             </button>
           </div>
         </div>
 
-        {/* ── サブスク情報 ── */}
+        {/* サブスク情報 */}
         <div className="card">
           <div className="card-head">
             <h2>
-              <span className="ic">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              </span>
+              <span className="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
               サブスク情報
             </h2>
             <p>現在のご契約状況です。</p>
           </div>
-          <div className="card-body" style={{paddingBottom:"18px"}}>
+          <div className="card-body" style={{paddingBottom:'18px'}}>
             <div className="info-rows">
               <div className="info-row">
-                <span className="k">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
-                  登録方式
-                </span>
-                <span className="method-pill">
-                  {isPhone ? (
-                    <React.Fragment>
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
-                      電話番号
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment>
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z"/></svg>
-                      note ID
-                    </React.Fragment>
-                  )}
-                </span>
+                <span className="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="10" y1="18" x2="14" y2="18"/></svg>登録方式</span>
+                <span className="method-pill">{methodLabel}</span>
               </div>
               <div className="info-row">
-                <span className="k">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  ステータス
-                </span>
+                <span className="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>ステータス</span>
                 <span className="sub-badge"><span className="pulse"></span>有効</span>
               </div>
               <div className="info-row">
-                <span className="k">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  登録日
-                </span>
+                <span className="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>登録日</span>
                 <span className="v">{registeredAt}</span>
               </div>
               <div className="info-row">
-                <span className="k">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                  プラン
-                </span>
+                <span className="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>プラン</span>
                 <span className="v">月額 500円</span>
               </div>
             </div>
             <div className="cancel-note">
-              <span className="ni">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              </span>
-              <span>
-                サブスクの解約は note のメンバーシップページから行ってください。<br/>
-                <a href="https://note.com/settings/memberships" target="_blank" rel="noopener noreferrer">
-                  noteメンバーシップページを開く
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </a>
+              <span className="ni"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+              <span>サブスクの解約は note のメンバーシップページから行ってください。<br/>
+                <a href="https://note.com/settings/memberships" target="_blank" rel="noopener noreferrer">noteメンバーシップページを開く <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
               </span>
             </div>
           </div>
         </div>
 
-        {/* ── ログアウト ── */}
         <div className="logout-area">
           <button className="logout-link" onClick={handleLogout}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             ログアウト
           </button>
         </div>
-
         <div className="foot">© 2026 ジブンゼミ　月額500円のキャリア支援サブスク</div>
       </div>
 
-      {/* トースト */}
-      <div className={"toast" + (toast ? " show" : "")}>
-        <span className="tk">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1A3A6B" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        </span>
+      <div className={"toast"+(toast?" show":"")}>
+        <span className="tk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1A3A6B" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
         {toast}
       </div>
     </React.Fragment>
