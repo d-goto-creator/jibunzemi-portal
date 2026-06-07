@@ -274,8 +274,8 @@ function App() {
       setAnim(false);
       try {
         const [sRes, cRes] = await Promise.all([
-          gasPost({ action: 'getAdminStats', adminToken, period }),
-          gasPost({ action: 'getAdminCategories', adminToken }),
+          gasPost({ action: 'adminGetStats', token: adminToken, period }),
+          gasPost({ action: 'adminGetCategories', token: adminToken }),
         ]);
         if (checkAuth(sRes)) return;
         applyStats(sRes);
@@ -301,7 +301,7 @@ function App() {
       setLoading(true);
       setAnim(false);
       try {
-        const res = await gasPost({ action: 'getAdminStats', adminToken, period });
+        const res = await gasPost({ action: 'adminGetStats', token: adminToken, period });
         if (checkAuth(res)) return;
         applyStats(res);
       } catch (e) {
@@ -328,7 +328,7 @@ function App() {
 
   /* ── ログアウト ── */
   async function handleLogout() {
-    try { await gasPost({ action: 'adminLogout', adminToken }); } catch {}
+    try { await gasPost({ action: 'logout', token: adminToken }); } catch {}
     localStorage.removeItem('jz_admin_token');
     localStorage.removeItem('jz_admin_user');
     window.location.href = 'admin_login.html';
